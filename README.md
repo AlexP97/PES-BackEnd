@@ -8,4 +8,12 @@ The first that we must to know is the context.
 ## Our server will response at 2 types of request.
 
 1. From a mobile App returning a JSON
+   * Sample of code:
+    ~~~~
+    <?PHP
+    $data = /** whatever you're serializing **/;
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    ?>
+    ~~~~
 2. From a web browser control panel returning html and information about success or not with queries
