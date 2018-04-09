@@ -10,14 +10,16 @@
 	$password = "elias";
 	$sql = "SELECT username FROM Users WHERE username = '" . $username . "' and password = '" . $password . "';";
 	$result = $conn->query($sql);
-	header('Content-type: application/json');.
+	//header('Content-type: application/json');.
 	if($result && $result->num_rows > 0){
-		$res = true;
-		$res.status(200);
-		echo json_encode($res);
+		//$res = true;
+		//$res.status(200);
+		//echo json_encode($res);
+		echo "Login correcto.\n";
 	} else {
-		$res = false;
-		$res.status(403);
-		echo json_encode($res);
+		//$res = false;
+		//$res.status(403);
+		//echo json_encode($res);
+		echo "Cuenta o contraseña incorrectos.\n";
 	}
 ?>
