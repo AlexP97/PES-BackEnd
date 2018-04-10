@@ -1,13 +1,13 @@
 <?php
 	require('connection.php');
 
-	//$username = $_POST["username"];
-	//$password = $_POST["password"];
-	//$password = hash('sha256', $password."AssistMe");
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+	$password = hash('sha256', $password."AssistMe");
 
-	$username = "elias";
+	//$username = "elias";
 	//$password = hash('sha256', "elias"."AssistMe");
-	$password = "elias";
+	//$password = "elias";
 	$sql = "SELECT username FROM Users WHERE username = '" . $username . "' and password = '" . $password . "';";
 	$result = $conn->query($sql);
 	//header('Content-type: application/json');.
