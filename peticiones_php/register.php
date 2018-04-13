@@ -9,13 +9,44 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
-	echo $username;
+	header('Content-type: application/json');.
 
-    $query = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
-
-    if ($conn->query($query) === TRUE) {
-		echo "New record created successfully";
-	} else {
-	    echo "Error: " . $query . "<br>" . $conn->error;
+	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
+	$result = $conn->query($querySelectUsername);
+	if($result && $result->num_rows > 0){
+		$res->correct = false;
+		$res->result = "Usuario ya existente.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
+		return;
 	}
+
+	$querySelectEmail = "SELECT email FROM Users WHERE email = '" . $email . "';";
+	$result = $conn->query($querySelectEmail);
+	if($result && $result->num_rows > 0){
+		$res->correct = false;
+		$res->result = "Email ya existente.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
+		return;
+	}
+
+    $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
+
+    if ($conn->query($queryInsert) === TRUE) {
+		$res->correct = true;
+		$res->result = "Register correcto.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
+		return;
+	} else {
+	    $res->correct = false;
+		$res->result = "Error desconocido.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
+		return;
+	}/*
+	$decoded = json_decode($myJSON);
+	$correcto = $decoded->{"result"};
+	echo $correcto;*/
 ?>
