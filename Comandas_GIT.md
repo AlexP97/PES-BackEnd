@@ -1,5 +1,5 @@
 
-#Ver estado de los archivos modificados, los cuales esten commits y los que no
+##Ver estado de los archivos modificados, los cuales esten commits y los que no
 git status
 
 ##Añadir los archivos modificados como commits. 
