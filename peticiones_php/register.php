@@ -33,7 +33,7 @@
 
     $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
 
-    if ($conn->query($query) === TRUE) {
+    if ($conn->query($queryInsert) === TRUE) {
 		$res->correct = true;
 		$res->result = "Register correcto.";
 		$myJSON = json_encode($res);
