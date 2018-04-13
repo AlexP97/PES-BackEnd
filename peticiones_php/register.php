@@ -9,29 +9,25 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
-	//header('Content-type: application/json');.
+	header('Content-type: application/json');.
 
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
-
 	if($result && $result->num_rows > 0){
 		$res->correct = false;
 		$res->result = "Usuario ya existente.";
 		$myJSON = json_encode($res);
-		//echo $myJSON;
-		writeJSON($myJSON);
+		echo $myJSON;
 		return;
 	}
 
 	$querySelectEmail = "SELECT email FROM Users WHERE email = '" . $email . "';";
 	$result = $conn->query($querySelectEmail);
-
 	if($result && $result->num_rows > 0){
 		$res->correct = false;
 		$res->result = "Email ya existente.";
 		$myJSON = json_encode($res);
-		//echo $myJSON;
-		writeJSON($myJSON);
+		echo $myJSON;
 		return;
 	}
 
@@ -41,20 +37,16 @@
 		$res->correct = true;
 		$res->result = "Register correcto.";
 		$myJSON = json_encode($res);
-		//echo $myJSON;
-		writeJSON($myJSON);
+		echo $myJSON;
 		return;
 	} else {
 	    $res->correct = false;
 		$res->result = "Error desconocido.";
 		$myJSON = json_encode($res);
-		//echo $myJSON;
-		writeJSON($myJSON);
+		echo $myJSON;
 		return;
-	}
-	function writeJSON($$myJSON){
-		$decoded = json_decode($myJSON);
-		$correcto = $decoded->{"result"};
-		echo $correcto;
-	}
+	}/*
+	$decoded = json_decode($myJSON);
+	$correcto = $decoded->{"result"};
+	echo $correcto;*/
 ?>

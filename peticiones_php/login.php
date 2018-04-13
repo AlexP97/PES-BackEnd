@@ -7,18 +7,20 @@
 
 	$sql = "SELECT username FROM Users WHERE username = '" . $username . "' and password = '" . $password . "';";
 	$result = $conn->query($sql);
-	//header('Content-type: application/json');.
+
+	header('Content-type: application/json');
+
 	if($result && $result->num_rows > 0){
 		$res->correct = true;
 		$myJSON = json_encode($res);
-		//echo $myJSON;
+		echo $myJSON;
 	} else {
 		$res->correct = false;
 		$myJSON = json_encode($res);
-		//echo $myJSON;
+		echo $myJSON;
 	}
-	$decoded = json_decode($myJSON);
+	/*$decoded = json_decode($myJSON);
 	$correcto = $decoded->{"correct"};
 	if($correcto) echo "Login correcto.";
-	else echo "Login incorrecto.";
+	else echo "Login incorrecto.";*/
 ?>
