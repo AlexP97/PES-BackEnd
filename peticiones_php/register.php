@@ -32,21 +32,19 @@
 	}
 */
     $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
+    echo $queryInsert;
 
     if ($conn->query($queryInsert) === TRUE) {
 		$res->correct = true;
 		$res->result = "Register correcto.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
-		return;
+		//return;
 	} else {
 	    $res->correct = false;
 		$res->result = "Error desconocido.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
-		return;
+		//return;
 	}/*
-	$decoded = json_decode($myJSON);
-	$correcto = $decoded->{"result"};
-	echo $correcto;*/
 ?>
