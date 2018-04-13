@@ -1,39 +1,39 @@
 
-##Ver estado de los archivos modificados, los cuales esten commits y los que no
+## Ver estado de los archivos modificados, los cuales esten commits y los que no
 git status
 
-##Añadir los archivos modificados como commits. 
+## Añadir los archivos modificados como commits. 
 ~~~~
 git add . 
 ~~~~
 
-##Hacer un commit
+## Hacer un commit
 ~~~~
 git commit -m "TXT"
 ~~~~
 
-##New Branch
+## New Branch
 ~~~~
 git branch feature-1
 git checkout -b feature-1
 ~~~~
 
-##Ver Branches
+## Ver Branches
 ~~~~
 git branch -a
 ~~~~
 
-##Cambiar de Branch
+## Cambiar de Branch
 ~~~~
 git checkout feature-1
 ~~~~
 
-##Delete Branch (hacer fuera de la branch a eliminar)
+## Delete Branch (hacer fuera de la branch a eliminar)
 ~~~~
 git branch -D feature-1 
 ~~~~
 
-##Merge una Branch
+## Merge una Branch
 ~~~~
 git merge feature-1
 ~~~~
