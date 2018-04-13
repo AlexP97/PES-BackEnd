@@ -19,8 +19,4 @@
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	}
-	/*$decoded = json_decode($myJSON);
-	$correcto = $decoded->{"correct"};
-	if($correcto) echo "Login correcto.";
-	else echo "Login incorrecto.";*/
 ?>

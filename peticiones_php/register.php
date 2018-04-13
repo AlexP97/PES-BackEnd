@@ -9,7 +9,7 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
-	header('Content-type: application/json');.
+	header('Content-type: application/json');./*
 
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
@@ -30,7 +30,7 @@
 		echo $myJSON;
 		return;
 	}
-
+*/
     $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
 
     if ($conn->query($queryInsert) === TRUE) {
