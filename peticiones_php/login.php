@@ -15,7 +15,7 @@
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	} else {
-		$res->correct = "true";
+		$res->correct = "false";
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	}
