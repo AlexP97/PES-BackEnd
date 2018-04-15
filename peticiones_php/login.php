@@ -11,11 +11,11 @@
 	header('Content-type: application/json');
 
 	if($result && $result->num_rows > 0){
-		$res->correct = true;
+		$res->correct = "true";
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	} else {
-		$res->correct = false;
+		$res->correct = "true";
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	}
