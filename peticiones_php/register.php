@@ -1,7 +1,14 @@
 <?php
     require 'connection.php';
 
-    $username = $_POST["username"];
+	header('Content-type: application/json');.
+	$res->correct = "true";
+	$myJSON = json_encode($res);
+	echo $myJSON;
+		//return;
+
+
+    /*$username = $_POST["username"];
 	$password = hash('sha256', $_POST["user_password"]."AssistMe");
 	$email = $_POST["email"];
 	//$usertype = $_POST["usertype"];
@@ -9,7 +16,7 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
-	header('Content-type: application/json');./*
+	header('Content-type: application/json');.
 
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
@@ -30,9 +37,8 @@
 		echo $myJSON;
 		return;
 	}
-*/
+
     $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
-    echo $queryInsert;
 
     if ($conn->query($queryInsert) === TRUE) {
 		$res->correct = true;
@@ -46,5 +52,5 @@
 		$myJSON = json_encode($res);
 		echo $myJSON;
 		//return;
-	}/*
+	}*/
 ?>
