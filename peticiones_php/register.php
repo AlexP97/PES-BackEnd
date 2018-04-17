@@ -4,11 +4,11 @@
 	//header('Content-type: application/json');.
 	$res->correct = "true";
 	$myJSON = json_encode($res);
-	echo $myJSON;/*
+	echo $myJSON;
 		//return;
 
 
-    /*$username = $_POST["username"];
+    $username = $_POST["username"];
 	$password = hash('sha256', $_POST["user_password"]."AssistMe");
 	$email = $_POST["email"];
 	//$usertype = $_POST["usertype"];
@@ -52,5 +52,5 @@
 		$myJSON = json_encode($res);
 		echo $myJSON;
 		//return;
-	}*/
+	}
 ?>

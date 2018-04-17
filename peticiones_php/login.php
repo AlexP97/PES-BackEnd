@@ -8,7 +8,6 @@
 	$sql = "SELECT username FROM Users WHERE username = '" . $username . "' and password = '" . $password . "';";
 	$result = $conn->query($sql);
 
-
 	if($result && $result->num_rows > 0){
 		$res->correct = "true";
 		$myJSON = json_encode($res);
