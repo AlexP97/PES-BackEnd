@@ -1,10 +1,10 @@
 <?php
-    require 'connection.php';
+    /*require 'connection.php';
 
 	header('Content-type: application/json');.
 	$res->correct = "true";
-	$myJSON = json_encode($res);
-	echo $myJSON;
+	$myJSON = json_encode($res);*/
+	echo "hola";
 		//return;
 
 
