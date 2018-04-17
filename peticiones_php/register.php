@@ -4,7 +4,7 @@
 	//header('Content-type: application/json');.
 	$res->correct = "true";
 	$myJSON = json_encode($res);
-	echo "hola";/*
+	echo $myJSON;/*
 		//return;
 
 
