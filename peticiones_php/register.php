@@ -1,10 +1,6 @@
 <?php
     require 'connection.php';
 
-	//header('Content-type: application/json');.
-	$res->correct = "true";
-	$myJSON = json_encode($res);
-	echo $myJSON;
 		//return;
 
 
@@ -16,7 +12,7 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
-	header('Content-type: application/json');.
+	header('Content-type: application/json');
 
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
