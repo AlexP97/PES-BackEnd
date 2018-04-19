@@ -5,6 +5,8 @@
 	$password = $_POST["password"];
 	$password = hash('sha256', $password."AssistMe");
 
+	$res = new \stdClass();
+
 	$sql = "SELECT username FROM Users WHERE username = '" . $username . "' and password = '" . $password . "';";
 	$result = $conn->query($sql);
 
