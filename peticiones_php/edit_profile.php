@@ -14,7 +14,10 @@
 
 	header('Content-type: application/json');
 
-	$queryUpdateProfile = "UPDATE username SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "';";
+
+	"UPDATE table_name SET id ='".$id."', title = '".$title."',now() WHERE id = '".$id."' ";
+
+	$queryUpdateProfile = "UPDATE Users SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "' WHERE username = '" . $username . "'  ;";
 
 	$result = $conn->query($queryUpdateProfile);
 
