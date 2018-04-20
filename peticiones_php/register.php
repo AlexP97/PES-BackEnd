@@ -16,6 +16,14 @@
 
 	header('Content-type: application/json');
 
+	if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
+		$res->correct = "false";
+		$res->result = "No has rellenado alguno de los campos."
+		$myJSON = json_encode($res);
+		echo $myJSON;
+		return;
+	}
+
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
 	if($result && $result->num_rows > 0){
