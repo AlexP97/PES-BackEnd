@@ -17,7 +17,7 @@
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
 	if($result && $result->num_rows > 0){
-		$res->correct = false;
+		$res->correct = "false";
 		$res->result = "Usuario ya existente.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
@@ -27,7 +27,7 @@
 	$querySelectEmail = "SELECT email FROM Users WHERE email = '" . $email . "';";
 	$result = $conn->query($querySelectEmail);
 	if($result && $result->num_rows > 0){
-		$res->correct = false;
+		$res->correct = "false";
 		$res->result = "Email ya existente.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
@@ -37,13 +37,13 @@
     $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
 
     if ($conn->query($queryInsert) === TRUE) {
-		$res->correct = true;
+		$res->correct = "true";
 		$res->result = "Register correcto.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
 		//return;
 	} else {
-	    $res->correct = false;
+	    $res->correct = "false";
 		$res->result = "Error desconocido.";
 		$myJSON = json_encode($res);
 		echo $myJSON;

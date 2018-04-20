@@ -19,13 +19,13 @@
 	$result = $conn->query($queryUpdateProfile);
 
 	if($result === TRUE) {
-		$res->correct = true;
+		$res->correct = "true";
 		$res->result = "Se ha modificado el perfil correctamente.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	}
 	else {
-	    $res->correct = false;
+	    $res->correct = "false";
 		$res->result = "Error desconocido.";
 		$myJSON = json_encode($res);
 		echo $myJSON;
