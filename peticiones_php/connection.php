@@ -1,7 +1,7 @@
 <?php
-	$servername = '127.0.0.1';
+	$servername = 'pes-db.cfkjup36khes.eu-west-1.rds.amazonaws.com';
 	$username = 'admin';
-	$password = 'admin';
+	$password = 'assistme';
 	$db = 'AssistMe';
 	$port = '3306';
 

@@ -12,6 +12,8 @@
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
+	$res = new \stdClass();
+
 	header('Content-type: application/json');
 
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
