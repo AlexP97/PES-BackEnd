@@ -27,7 +27,7 @@
 		
 	}
 
-	if(!$error) {
+	if($error === FALSE) {
 		$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 		$result = $conn->query($querySelectUsername);
 		if($result && $result->num_rows > 0){
@@ -37,7 +37,7 @@
 			echo $myJSON;
 			$error = TRUE;
 		}
-		if(!$error) {
+		if($error === FALSE) {
 			$querySelectEmail = "SELECT email FROM Users WHERE email = '" . $email . "';";
 			$result = $conn->query($querySelectEmail);
 			if($result && $result->num_rows > 0){
@@ -47,7 +47,7 @@
 				echo $myJSON;
 				$error = TRUE;
 			}
-			if(!$error) {
+			if($error === FALSE) {
 			    $queryInsert = "INSERT INTO Users VALUES ('".$username."','".$password."','".$email."','admin','".$name."','".$surname."','".$country."');";
 
 			    if ($conn->query($queryInsert) === TRUE) {
