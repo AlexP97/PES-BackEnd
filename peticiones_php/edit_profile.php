@@ -14,7 +14,7 @@
 
 	header('Content-type: application/json');
 
-	$queryUpdateProfile = "UPDATE username SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "'  WHERE username = '" . $username . "'  ;";
+	$queryUpdateProfile = "UPDATE username SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "';";
 
 	$result = $conn->query($queryUpdateProfile);
 
