@@ -18,14 +18,14 @@
 
 	header('Content-type: application/json');
 
-	if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
+	/*if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
 		$res->correct = "false";
 		$res->result = "No has rellenado alguno de los campos."
 		$myJSON = json_encode($res);
 		echo $myJSON;
 		$error = TRUE;
 		
-	}
+	}*/
 
 	if($error === FALSE) {
 		$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";

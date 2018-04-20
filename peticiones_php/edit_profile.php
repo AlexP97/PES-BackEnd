@@ -14,31 +14,28 @@
 
 	header('Content-type: application/json');
 
-	$error = false;
-
-	if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
+	/*if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
 		$res->correct = "false";
 		$res->result = "No has rellenado alguno de los campos."
 		$myJSON = json_encode($res);
 		echo $myJSON;
-		$error = true;
+		return;
+	}*/
+
+	$queryUpdateProfile = "UPDATE Users SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "' WHERE username = '" . $username . "'  ;";
+
+	$result = $conn->query($queryUpdateProfile);
+
+	if($result === TRUE) {
+		$res->correct = "true";
+		$res->result = "Se ha modificado el perfil correctamente.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
 	}
-	if(!$error) {
-		$queryUpdateProfile = "UPDATE Users SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "' WHERE username = '" . $username . "'  ;";
-
-		$result = $conn->query($queryUpdateProfile);
-
-		if($result === TRUE) {
-			$res->correct = "true";
-			$res->result = "Se ha modificado el perfil correctamente.";
-			$myJSON = json_encode($res);
-			echo $myJSON;
-		}
-		else {
-		    $res->correct = "false";
-			$res->result = "Error desconocido.";
-			$myJSON = json_encode($res);
-			echo $myJSON;
-		}
+	else {
+	    $res->correct = "false";
+		$res->result = "Error desconocido.";
+		$myJSON = json_encode($res);
+		echo $myJSON;
 	}
 ?>
