@@ -17,3 +17,17 @@ The first that we must to know is the context.
     ?>
     ~~~~
 2. From a web browser control panel returning html and information about success or not with queries
+
+## Patterns & Code organization.
+Folders:
+  ·root
+    ·requests
+    ·domain
+    ·persistence
+* All the request will be treated by php files inside requests folder ('~/peticiones_php').
+* Domain Layer Pattern
+  ** Every request will be linked with a transaction that it will return the corresponded response. A transaction is represented by a class that implements the abstract class Transaction.
+  
+* Abstract Factory Pattern
+* Adapter Pattern
+* Singleton Pattern
