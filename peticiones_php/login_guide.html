@@ -8,38 +8,44 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="Shortcut icon" href="Logo.png">
 		<style>
-			.error {color: #FF0000;}
+			#error {color: red;}
+			#response {color:red;}
 		</style>
+	</head>
+	<body>
 		<script>
 			function login(){
-				var uri="login.php";
+				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
 				var req = new XMLHttpRequest();
-				var log_username = document.getElementById("username").value;
-				var log_password = document.getElementById("password").value;
-				var data = "username=" + username + "&password=" + password;
+				var username = document.getElementById("username").value;
+				var password = document.getElementById("password").value;
+				var data = "?username=" + username + "&password=" + password;
 				req.onreadystatechange = function(){
-					if(req.readyState == 4 && req.status == 200){
+					if(req.readyState == 4/* && req.status == 200*/){
+						document.getElementById("response").innerHTML = "peticion realizada";
+						/*
 						var resp = JSON.parse(req.responseText);
 						var aux = resp.correct;
+						document.getElementById("response").innerHTML = aux;
 						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
-						else if (aux == "true") location.replace("http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
+						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");*/
 					}
 				};
-				req.open('POST', uri + "?" + data, true);
+				req.open('POST', uri + data, true);
+				//req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				req.send();
 			}
 		</script>
-	</head>
-	<body>
-		<form action="login.php" method="POST">
+		<form method="POST">
 		  <label> Name: </label>
-		  <input type="text" name="username">
+		  <input type="text" id="username">
 		  <br>
 		  <label> Password: </label>
-		  <input type="password" name="password">
+		  <input type="password" id="password">
 		  <br><br>
-		  <input type="submit" class="btn btn-primary" value="Submit">
+		  <button class="btn btn-primary" onClick="login()"> Submit </button>
 		</form> 
 		<div id="error"> </div>
+		<div id="response"> </div>
 	</body>
 </html>
