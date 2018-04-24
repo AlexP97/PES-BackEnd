@@ -21,7 +21,7 @@
 				var password = document.getElementById("password").value;
 				var data = "?username=" + username + "&password=" + password;
 				req.onreadystatechange = function(){
-					if(req.readyState == 4/* && req.status == 200*/){
+					if(req.readyState == 4 && req.status == 200){
 						document.getElementById("response").innerHTML = "peticion realizada";
 						/*
 						var resp = JSON.parse(req.responseText);
