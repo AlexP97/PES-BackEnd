@@ -5,28 +5,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="Shortcut icon" href="Logo.png">
 		<style>
 			#error {color: red;}
 			#response {color:red;}
 		</style>
-	</head>
-	<body>
 		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#form1').submit(function(){
-					$.ajax({
-						type: "POST",
-						url: 'ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php',
-						data: $(this).serialize(),
-						success: function(data){
-							$("#response").html("bien hecho makina");
-						}
-					});
+			function post(username, password){
+				var parameters = {
+					"username" : username,
+					"password" : password
+				};
+				$.ajax({
+					data: parameters,
+					url: 'login.php',
+					type: 'post',
+					success: function(data){
+						$("#response").html(data);
+					}
 				});
-			});
-
+			}
 
 			/*
 				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
@@ -49,6 +48,8 @@
 				req.send();
 			}
 		</script>
+	</head>
+	<body>
 		<form id="form1" method="POST">
 		  <label> Name: </label>
 		  <input type="text" name="username" id="username">
@@ -56,9 +57,9 @@
 		  <label> Password: </label>
 		  <input type="password" name="password" id="password">
 		  <br><br>
-		  <input type="submit" class="btn btn-primary" value="Submit">
+		  <input type="submit" href="javascript:;" onClick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
 		</form> 
-		<div id="error"> </div>
-		<div id="response"> </div>
+		<span id="error"> </span>
+		<span id="response"> </span>
 	</body>
 </html>
