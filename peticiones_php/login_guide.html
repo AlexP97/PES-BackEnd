@@ -27,26 +27,7 @@
 				});
 			}
 
-			/*
-				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
-				var req = new XMLHttpRequest();
-				var username = document.getElementById("username").value;
-				var password = document.getElementById("password").value;
-				var data = "?username=" + username + "&password=" + password;
-				req.onreadystatechange = function(){
-					if(req.readyState == 4 && req.status == 200){
-						document.getElementById("response").innerHTML = "peticion realizada";
-						
-						var resp = JSON.parse(req.responseText);
-						var aux = resp.correct;
-						document.getElementById("response").innerHTML = aux;
-						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
-						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
-					}
-				};
-				req.open('POST', uri + data, true);
-				req.send();
-			}
+			
 		</script>
 	</head>
 	<body>
@@ -57,7 +38,7 @@
 		  <label> Password: </label>
 		  <input type="password" name="password" id="password">
 		  <br><br>
-		  <input type="submit" href="javascript:;" onClick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
+		  <input type="submit" href="javascript:;" onclick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
 		</form> 
 		<span id="error"> </span>
 		<span id="response"> </span>
