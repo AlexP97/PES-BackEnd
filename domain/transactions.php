@@ -98,7 +98,7 @@ class RegisterRequest extends Transaction
 			"usertype" => "normal",
 		);
 		$result = SingletonDataFactory::getInstance()->getUserDBController()->insertUser($data);
-		 if($result) {
+		 if($result==="true") {
 		 	$this->response->correct = "true";
 		 	$this->response->result = "Register correcto.";
 		 }
