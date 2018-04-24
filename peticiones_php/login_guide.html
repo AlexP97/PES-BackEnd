@@ -13,8 +13,22 @@
 		</style>
 	</head>
 	<body>
-		<script>
-			function login(){
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#form1').submit(function(){
+					$.ajax({
+						type: "POST",
+						url: 'ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php',
+						data: $(this).serialize(),
+						success: function(data){
+							$("#response").html("bien hecho makina");
+						}
+					});
+				});
+			});
+
+
+			/*
 				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
 				var req = new XMLHttpRequest();
 				var username = document.getElementById("username").value;
@@ -23,27 +37,26 @@
 				req.onreadystatechange = function(){
 					if(req.readyState == 4 && req.status == 200){
 						document.getElementById("response").innerHTML = "peticion realizada";
-						/*
+						
 						var resp = JSON.parse(req.responseText);
 						var aux = resp.correct;
 						document.getElementById("response").innerHTML = aux;
 						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
-						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");*/
+						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
 					}
 				};
 				req.open('POST', uri + data, true);
-				//req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				req.send();
 			}
 		</script>
-		<form method="POST">
+		<form id="form1" method="POST">
 		  <label> Name: </label>
-		  <input type="text" id="username">
+		  <input type="text" name="username" id="username">
 		  <br>
 		  <label> Password: </label>
-		  <input type="password" id="password">
+		  <input type="password" name="password" id="password">
 		  <br><br>
-		  <button class="btn btn-primary" onClick="login()"> Submit </button>
+		  <input type="submit" class="btn btn-primary" value="Submit">
 		</form> 
 		<div id="error"> </div>
 		<div id="response"> </div>
