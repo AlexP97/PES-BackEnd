@@ -4,6 +4,8 @@
 
 	$tx = new LoginRequest();
 	$tx->execute();
+
+	http_response_code(200);
 	/*	require('connection.php');
 
 	$username = $_POST["username"];

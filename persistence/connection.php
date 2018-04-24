@@ -36,14 +36,12 @@ class Connection
 
 	public function reconnect()
 	{
-		$this->conn = mysqli_connect($this->servername, $this->username, $this->password,
+		$this->conn = new mysqli($this->servername, $this->username, $this->password,
 		 $this->db, $this->port);
 
 		if (mysqli_connect_errno())
 		{
 			echo "Failed to connect to MySQL: " . mysqli_connect_error() . ".\n";
-		} else {
-			echo "Connected succesfully.\n";
 		}
 	}
 }

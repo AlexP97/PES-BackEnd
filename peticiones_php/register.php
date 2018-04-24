@@ -1,8 +1,13 @@
 <?php
-    require 'connection.php';
+    ini_set('display_errors',1);
+	require '../domain/transactions.php';
 
+    $tx = new RegisterRequest();
+    $tx->execute();
+
+    http_response_code(200);
 		//return;
-
+/*
 
     $username = $_POST["username"];
 	$password = hash('sha256', $_POST["user_password"]."AssistMe");
@@ -25,7 +30,7 @@
 		echo $myJSON;
 		return;
 	}*/
-
+/*
 	$querySelectUsername = "SELECT username FROM Users WHERE username = '" . $username . "';";
 	$result = $conn->query($querySelectUsername);
 	if($result && $result->num_rows > 0){
@@ -61,4 +66,4 @@
 		echo $myJSON;
 		//return;
 	}
-?>
+?>*/

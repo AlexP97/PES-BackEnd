@@ -9,6 +9,15 @@ class UserMysqli implements IDBUser
 	{
 
 	}
+
+	public function insertUser($data)
+	{
+		$queryInsert = "INSERT INTO Users VALUES ('".$data['username']."','".$data['password']."','".$data['email']."','".$data['usertype']."','".$data['name']."','".$data['surname']."','".$data['country']."');";
+		$result = Connection::getInstance()->getConnection()->query($queryInsert);
+		if(!$result) return Connection::getInstance()->getConnection()->error;
+		return TRUE;
+	}
+
 	public function existsUser($username)
 	{
 
