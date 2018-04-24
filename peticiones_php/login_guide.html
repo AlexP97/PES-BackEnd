@@ -3,40 +3,43 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title> Login </title>
+		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="Shortcut icon" href="Logo.png">
-	</head>
-	<body>
+		<style>
+			.error {color: #FF0000;}
+		</style>
 		<script>
 			function login(){
-				var uri="http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
+				var uri="login.php";
 				var req = new XMLHttpRequest();
 				var log_username = document.getElementById("username").value;
 				var log_password = document.getElementById("password").value;
 				var data = "username=" + username + "&password=" + password;
-				req.open('POST', uri, true);
 				req.onreadystatechange = function(){
 					if(req.readyState == 4 && req.status == 200){
 						var resp = JSON.parse(req.responseText);
 						var aux = resp.correct;
-						if (aux == "false") alert("Login incorrecto");
-						else if (aux == "true") window.location("http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
+						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
+						else if (aux == "true") location.replace("http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
 					}
 				};
-				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				req.send("username=" + username + "&password=" + password);
+				req.open('POST', uri + "?" + data, true);
+				req.send();
 			}
 		</script>
-		<form id="form1" method="POST">
-		  Name:<br>
-		  <input id="username" type="text" name="username">
+	</head>
+	<body>
+		<form action="login.php" method="POST">
+		  <label> Name: </label>
+		  <input type="text" name="username">
 		  <br>
-		  Password:<br>
-		  <input id="password" type="password" name="password">
+		  <label> Password: </label>
+		  <input type="password" name="password">
 		  <br><br>
-		  <button form="form1" class="btn btn-primary" onclick="login()" type="submit" value="Submit"> Login </button>
+		  <input type="submit" class="btn btn-primary" value="Submit">
 		</form> 
+		<div id="error"> </div>
 	</body>
 </html>
