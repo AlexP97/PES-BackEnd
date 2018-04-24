@@ -3,40 +3,49 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title> Login </title>
+		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="Shortcut icon" href="Logo.png">
+		<style>
+			#error {color: red;}
+			#response {color:red;}
+		</style>
 	</head>
 	<body>
 		<script>
 			function login(){
-				var uri="http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
+				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
 				var req = new XMLHttpRequest();
-				var log_username = document.getElementById("username").value;
-				var log_password = document.getElementById("password").value;
-				var data = "username=" + username + "&password=" + password;
-				req.open('POST', uri, true);
+				var username = document.getElementById("username").value;
+				var password = document.getElementById("password").value;
+				var data = "?username=" + username + "&password=" + password;
 				req.onreadystatechange = function(){
-					if(req.readyState == 4 && req.status == 200){
+					if(req.readyState == 4/* && req.status == 200*/){
+						document.getElementById("response").innerHTML = "peticion realizada";
+						/*
 						var resp = JSON.parse(req.responseText);
 						var aux = resp.correct;
-						if (aux == "false") alert("Login incorrecto");
-						else if (aux == "true") window.location("http://ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
+						document.getElementById("response").innerHTML = aux;
+						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
+						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");*/
 					}
 				};
-				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				req.send("username=" + username + "&password=" + password);
+				req.open('POST', uri + data, true);
+				//req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				req.send();
 			}
 		</script>
-		<form id="form1" method="POST">
-		  Name:<br>
-		  <input id="username" type="text" name="username">
+		<form method="POST">
+		  <label> Name: </label>
+		  <input type="text" id="username">
 		  <br>
-		  Password:<br>
-		  <input id="password" type="password" name="password">
+		  <label> Password: </label>
+		  <input type="password" id="password">
 		  <br><br>
-		  <button form="form1" class="btn btn-primary" onclick="login()" type="submit" value="Submit"> Login </button>
+		  <button class="btn btn-primary" onClick="login()"> Submit </button>
 		</form> 
+		<div id="error"> </div>
+		<div id="response"> </div>
 	</body>
 </html>
