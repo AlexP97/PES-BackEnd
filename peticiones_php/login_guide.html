@@ -22,7 +22,16 @@
 					url: 'login.php',
 					type: 'post',
 					success: function(data){
-						$("#response").html(data);
+						//$("#response").html(data);
+						//var obj = JSON.parse(data);
+						//alert(data.correct);
+						if(data.correct == "true"){
+							sessionStorage.setItem('username', username);
+							window.location.href = "create_guide.html";
+						}else{
+							alert("Login incorrecto");
+						}
+						
 					}
 				});
 			}
@@ -46,7 +55,7 @@
 				};
 				req.open('POST', uri + data, true);
 				req.send();
-			}
+			}*/
 		</script>
 	</head>
 	<body>
@@ -57,7 +66,7 @@
 		  <label> Password: </label>
 		  <input type="password" name="password" id="password">
 		  <br><br>
-		  <input type="submit" href="javascript:;" onClick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
+		  <input type="button" onclick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
 		</form> 
 		<span id="error"> </span>
 		<span id="response"> </span>
