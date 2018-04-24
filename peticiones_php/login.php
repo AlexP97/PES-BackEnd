@@ -3,9 +3,8 @@
 	require '../domain/transactions.php';
 
 	$tx = new LoginRequest();
-	$tx->execute();
-
 	http_response_code(200);
+	$tx->execute();
 	/*	require('connection.php');
 
 	$username = $_POST["username"];
