@@ -14,6 +14,10 @@ class Connection
 		$this->reconnect();	//this time is just a connect method
 	}
 
+	function __destruct() {
+		$this->conn->close();
+	}
+
 	public static function getInstance() 
 	{
 		if(self::$instance==null) {
