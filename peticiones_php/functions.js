@@ -1,5 +1,5 @@
 function checkSession(){
-	if(sessionStorage.getItem('username') || localStorage.getItem('username'){
+	if(sessionStorage.getItem('username') || localStorage.getItem('username')){
 		window.location.href = "create_guide.html";
 	}
 }
