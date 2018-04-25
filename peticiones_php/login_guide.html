@@ -3,12 +3,16 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<title> AssistMe log in </title>
+		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="functions.js"> </script>
 		<link rel="Shortcut icon" href="Logo.png">
 		<link href="style.css" rel="stylesheet">
 		<script type="text/javascript">
+			$(document).ready(function(){
+				checkSession();
+			});
 			function post(username, password){
 				if(username == "" || password == "") return;
 				var parameters = {
@@ -21,10 +25,12 @@
 					type: 'post',
 					success: function(data){
 						if(data.correct == "true"){
-							sessionStorage.setItem('username', username);
+							var cb = document.getElementById("cb1");
+							if(cb.checked) localStorage.setItem('username', username);
+							else sessionStorage.setItem('username', username);
 							window.location.href = "create_guide.html";
 						}else{
-							alert("Login incorrecto");
+							$("#error1").html("Incorrect login");
 						}
 						
 					}
@@ -35,12 +41,18 @@
 	<body class="text-center">
 		<form class="form-signin" id="form1" method="POST">
 			<img class="mb-4" src="Logo.png" alt="" width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+			<h1 class="h3 mb-3 font-weight-normal">Please login</h1>
 			<label for="username" class="sr-only"> Username </label>
 			<input class="form-control" placeholder="Username" type="text" name="username" id="username" required autofocus>
 			<label for="password" class="sr-only"> Password </label>
 			<input class="form-control" placeholder="Password" type="password" name="password" id="password">
-			<input class="btn btn-lg btn-primary btn-block" type="input" onclick="post($('#username').val(), $('#password').val());" class="btn btn-lg btn-primary btn-block" value="Submit">
+			<div class="checkbox mb-3">
+		        <label>
+		          <input id="cb1" type="checkbox" value="remember-me"> Remember me
+		        </label>
+		      </div>
+			<input class="btn btn-lg btn-primary btn-block" type="button" onclick="post($('#username').val(), $('#password').val());" class="btn btn-lg btn-primary btn-block" value="Submit">
 		</form> 
+		<div id="error1" class="error"> </div>
 	</body>
 </html>
