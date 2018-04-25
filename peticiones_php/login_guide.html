@@ -2,15 +2,12 @@
 <html lang='en'>
 	<head>
 		<meta charset = "utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title> AssistMe login </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+		<title> AssistMe log in </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link rel="Shortcut icon" href="Logo.png">
-		<style>
-			#error {color: red;}
-			#response {color:red;}
-		</style>
+		<link href="style.css" rel="stylesheet">
 		<script type="text/javascript">
 			function post(username, password){
 				var parameters = {
@@ -22,9 +19,6 @@
 					url: 'login.php',
 					type: 'post',
 					success: function(data){
-						//$("#response").html(data);
-						//var obj = JSON.parse(data);
-						//alert(data.correct);
 						if(data.correct == "true"){
 							sessionStorage.setItem('username', username);
 							window.location.href = "create_guide.html";
@@ -35,39 +29,17 @@
 					}
 				});
 			}
-			/*
-				var uri="ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/login.php";
-				var req = new XMLHttpRequest();
-				var username = document.getElementById("username").value;
-				var password = document.getElementById("password").value;
-				var data = "?username=" + username + "&password=" + password;
-				req.onreadystatechange = function(){
-					if(req.readyState == 4 && req.status == 200){
-						document.getElementById("response").innerHTML = "peticion realizada";
-						
-						var resp = JSON.parse(req.responseText);
-						var aux = resp.correct;
-						document.getElementById("response").innerHTML = aux;
-						if (aux == "false") document.getElementById("error").innerHTML = "Usuario o contraseña inválidos";
-						else if (aux == "true") location.replace("ec2-35-180-58-81.eu-west-3.compute.amazonaws.com/PES_AssistMe_BackEnd/peticiones_php/create_guide.html");
-					}
-				};
-				req.open('POST', uri + data, true);
-				req.send();
-			}*/
 		</script>
 	</head>
-	<body>
-		<form id="form1" method="POST">
-		  <label> Name: </label>
-		  <input type="text" name="username" id="username">
-		  <br>
-		  <label> Password: </label>
-		  <input type="password" name="password" id="password">
-		  <br><br>
-		  <input type="button" onclick="post($('#username').val(), $('#password').val());" class="btn btn-primary" value="Submit">
+	<body class="text-center">
+		<form class="form-signin" id="form1" method="POST">
+			<img class="mb-4" src="Logo.png" alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+			<label for="username" class="sr-only"> Username </label>
+			<input class="form-control" placeholder="Username" type="text" name="username" id="username" required autofocus>
+			<label for="password" class="sr-only"> Password </label>
+			<input class="form-control" placeholder="Password" type="password" name="password" id="password">
+			<input class="btn btn-lg btn-primary btn-block" type="submit" onclick="post($('#username').val(), $('#password').val());" class="btn btn-lg btn-primary btn-block" value="Submit">
 		</form> 
-		<span id="error"> </span>
-		<span id="response"> </span>
 	</body>
 </html>
