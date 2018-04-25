@@ -6,18 +6,17 @@
 		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="functions.js"> </script>
 		<link rel="Shortcut icon" href="Logo.png">
 		<link href="style.css" rel="stylesheet">
-		<script type="text/javascript">
+		<script type="text/javascript" src="functions.js">
 			$(document).ready(function(){
 				checkSession();
 			});
-			function post(username, password){
+			function post(){
 				if(username == "" || password == "") return;
 				var parameters = {
-					"username" : username,
-					"password" : password
+					"username" : $("#username").val(),
+					"password" : $("#password").val()
 				};
 				$.ajax({
 					data: parameters,
@@ -39,7 +38,7 @@
 		</script>
 	</head>
 	<body class="text-center">
-		<form class="form-signin" id="form1" method="POST" onsubmit="post($('#username').val(), $('#password').val());">
+		<form class="form-signin" id="form1" method="POST" onsubmit="post();">
 			<img class="mb-4" src="Logo.png" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal">Please login</h1>
 			<label for="username" class="sr-only"> Username </label>
