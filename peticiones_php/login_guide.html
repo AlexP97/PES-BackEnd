@@ -10,6 +10,7 @@
 		<link href="style.css" rel="stylesheet">
 		<script type="text/javascript">
 			function post(username, password){
+				if(username == "" || password == "") return;
 				var parameters = {
 					"username" : username,
 					"password" : password
