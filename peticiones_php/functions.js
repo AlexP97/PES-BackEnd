@@ -1,17 +1,11 @@
 function checkSession(){
-	if(sessionStorage.getItem('username')){
-		window.location.href = "create_guide.html";
-	}
-	if(localStorage.getItem('username')){
+	if(sessionStorage.getItem('username') || localStorage.getItem('username'){
 		window.location.href = "create_guide.html";
 	}
 }
 
 function checkLogged(){
-	if(!sessionStorage.getItem('username')){
-		window.location.href = "login_guide.html";
-	}
-	if(!localStorage.getItem('username')){
+	if(!sessionStorage.getItem('username') && !localStorage.getItem('username')){
 		window.location.href = "login_guide.html";
 	}
 }
