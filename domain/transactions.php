@@ -1,6 +1,6 @@
 <?php
 
-require 'factory.php';
+require_once 'factory.php';
 
 /**
 * 
@@ -142,5 +142,35 @@ class DTOGuideRequest extends Transaction
 	public function execute()
 	{
 
+	}
+}
+
+/**
+* 
+*/
+class NewGuideRequest extends Transaction
+{
+
+	private $username;
+	private $data;
+	private $title;
+	private $response;
+	
+	function __construct()
+	{
+		$this->username = $_POST["username"];
+		$this->data = $_POST["data"];
+		$this->title = $_POST["title"];
+		$this->response = new \stdClass();
+	}
+
+	public function execute()
+	{
+		header('Content-type: application/json');
+		$this->response->correct 
+			= SingletonDataFactory::getInstance()->getGuideDBController()->insertGuide($this->username,
+				$this->data, $this->title);
+		$myJSON = json_encode($this->response);
+		echo $myJSON;
 	}
 }

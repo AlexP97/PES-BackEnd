@@ -1,10 +1,13 @@
 <?php
-require '../persistence/userMysqli.php';
+require_once '../persistence/userMysqli.php';
+require_once '../persistence/guideMysqli.php';
 
 class SingletonDataFactory 
 {
 private static $instance = null;
 private static $userDBController = null;
+private static $guideDBController = null;
+
 	private function __construct()
 	{
 
@@ -24,5 +27,13 @@ private static $userDBController = null;
 			self::$userDBController = new UserMysqli();
 		}
 		return self::$userDBController;
+	}
+
+	public function getGuideDBController()
+	{
+		if(self::$guideDBController == null) {
+			self::$guideDBController = new GuideMysqli();
+		}
+		return self::$guideDBController;
 	}
 }
