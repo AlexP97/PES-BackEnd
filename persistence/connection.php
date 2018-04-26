@@ -20,7 +20,7 @@ class Connection
 
 	public static function getInstance() 
 	{
-		if(self::$instance==null) {
+		if(self::$instance===null) {
 			self::$instance = new Connection();
 		}
 		return self::$instance;
@@ -33,7 +33,7 @@ class Connection
 		{
 			echo "Connection to DB lost: " . mysqli_connect_error() . ".\n";
 			echo "trying to reconnect...\n";
-			reconnect();
+			$this->reconnect();
 		}
 		return $this->conn;
 	}

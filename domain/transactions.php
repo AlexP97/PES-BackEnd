@@ -22,18 +22,19 @@ class LoginRequest extends Transaction
 	function __construct()
 	{
 		# code...
-		$this->username = $_POST["username"];
-		$this->password = $_POST["password"];
-		$this->password = hash('sha256', $this->password."AssistMe");
+		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
+		$this->password = isset($_POST["password"]) ? $_POST["password"] : null;
+		if($this->password !== null) $this->password = hash('sha256', $this->password."AssistMe");
 		$this->response = new \stdClass();
 	}
 
 	public function execute() 
 	{
-		header('Content-type: application/json');
+		if($this->username === null || $this->password === null) return json_encode("false");
 		$this->response->correct 
 			= SingletonDataFactory::getInstance()->getUserDBController()->validLogin($this->username,
 				$this->password);
+		header('Content-type: application/json');
 		$myJSON = json_encode($this->response);
 		echo $myJSON;
 	}
@@ -73,12 +74,13 @@ class RegisterRequest extends Transaction
 	function __construct()
 	{
 		# code...
-		$this->username = $_POST["username"];
-		$this->password = hash('sha256', $_POST["user_password"]."AssistMe");
-		$this->email = $_POST["email"];
-		$this->name = $_POST["name"];
-		$this->surname = $_POST["surname"];
-		$this->country = $_POST["country"];
+		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
+		$this->password
+		 = isset($_POST["user_password"]) ? hash('sha256', $_POST["user_password"]."AssistMe") : null;
+		$this->email = isset($_POST["email"]) ? $_POST["email"] : null;
+		$this->name = isset($_POST["name"]) ? $_POST["name"] : null;
+		$this->surname = isset($_POST["surname"]) ? $_POST["surname"] : null;
+		$this->country = isset($_POST["country"]) ? $_POST["country"] : null;
 
 		$this->response = new \stdClass();
 
@@ -87,8 +89,12 @@ class RegisterRequest extends Transaction
 
 	public function execute() 
 	{
-		header('Content-type: application/json');
-		$data = array(
+		if($this->username === null || $this->password === null || $this->email === null) {
+			$this->response->correct = "false";
+			$this->response->result = "se han enviado campos obligatorios nulos";
+		}
+		else {
+			$data = array(
 			"username" => $this->username,
 			"password" => $this->password,
 			"email" => $this->email,
@@ -106,6 +112,8 @@ class RegisterRequest extends Transaction
 		 	$this->response->correct = "false";
 		 	$this->response->result = $result;
 		 }
+		}
+		header('Content-type: application/json');
 		$myJSON = json_encode($this->response);
 		echo $myJSON;
 	}
@@ -158,9 +166,9 @@ class NewGuideRequest extends Transaction
 	
 	function __construct()
 	{
-		$this->username = $_POST["username"];
-		$this->data = $_POST["data"];
-		$this->title = $_POST["title"];
+		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
+		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
+		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
 		$this->response = new \stdClass();
 	}
 

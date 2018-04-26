@@ -1,6 +1,6 @@
 <?php
     ini_set('display_errors',1);
-	require '../domain/transactions.php';
+	require_once '../domain/transactions.php';
 
     $tx = new RegisterRequest();
     $tx->execute();
