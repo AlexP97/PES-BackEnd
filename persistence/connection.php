@@ -33,7 +33,7 @@ class Connection
 		{
 			echo "Connection to DB lost: " . mysqli_connect_error() . ".\n";
 			echo "trying to reconnect...\n";
-			reconnect();
+			$this->reconnect();
 		}
 		return $this->conn;
 	}

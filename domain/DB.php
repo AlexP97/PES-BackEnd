@@ -7,7 +7,7 @@ interface IDBUser
 	public function existsUser($username);
 	public function validLogin($username,$password);
 	public function getAll($filter);
-	
+	public function editUser($data);
 }
 
 

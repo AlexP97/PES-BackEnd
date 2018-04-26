@@ -44,4 +44,13 @@ class UserMysqli implements IDBUser
 	{
 
 	}
+	public function editUser($data) {
+		$sql = Connection::getInstance()->getConnection()->prepare("UPDATE Users SET password = ?, email = ?, name = ?, surname = ?, country = ? WHERE username = ?");
+		$sql->bind_param('ssssss', $data['password'], $data['email'], $data['name'], $data['surname'], $data['country'], $data['username']);
+		$sql->execute();
+		if($stament->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
+		else $result = "true";
+		$stament->close();
+		return $result;
+	}
 }

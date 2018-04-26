@@ -1,26 +1,28 @@
 <?php
-    require 'connection.php';
+	ini_set('display_errors',1);
+    require '../domain/transactions.php';
 
-		//return;
-
+    $tx = new EditUserRequest();
+	http_response_code(200);
+	$tx->execute();
+/*
 
     $username = $_POST["username"];
 	$password = hash('sha256', $_POST["user_password"]."AssistMe");
 	$email = $_POST["email"];
-	//$usertype = $_POST["usertype"];
 	$name = $_POST["name"];
 	$surname = $_POST["surname"];
 	$country = $_POST["country"];
 
 	header('Content-type: application/json');
 
-	/*if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
+	if($username == "" || $password == "" || $email == "" || $name == "" || $surname == "" || $country == "") {
 		$res->correct = "false";
 		$res->result = "No has rellenado alguno de los campos."
 		$myJSON = json_encode($res);
 		echo $myJSON;
 		return;
-	}*/
+	}
 
 	$queryUpdateProfile = "UPDATE Users SET password = '" . $password . "', email = '" . $email . "', name = '" . $name . "', surname = '" . $surname . "', country = '" . $country . "' WHERE username = '" . $username . "'  ;";
 
@@ -38,4 +40,5 @@
 		$myJSON = json_encode($res);
 		echo $myJSON;
 	}
-?>
+	*/
+?> 
