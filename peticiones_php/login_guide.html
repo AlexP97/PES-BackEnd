@@ -10,9 +10,10 @@
 		<link href="style.css" rel="stylesheet">
 		<script type="text/javascript" src="functions.js">
 			$(document).ready(function(){
+				$('form-signin').on('submit', myFunction);
 				checkSession();
 			});
-			function post(){
+			function login(){
 				if(username == "" || password == "") return;
 				var parameters = {
 					"username" : $("#username").val(),
@@ -38,7 +39,7 @@
 		</script>
 	</head>
 	<body class="text-center">
-		<form class="form-signin" id="form1" method="POST" onsubmit="post();">
+		<form class="form-signin" id="form1" method="POST">
 			<img class="mb-4" src="Logo.png" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal">Please login</h1>
 			<label for="username" class="sr-only"> Username </label>
