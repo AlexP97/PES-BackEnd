@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset = "utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="Shortcut icon" href="Logo.png">
+		<title> My guides </title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="functions.js"></script>
+		<link href="" rel="stylesheet">
+
+		<script>
+			function getGuides(){
+				var parameters = {
+					"username" : sessionStorage.getItem('username')
+				};
+				$.ajax({
+					data: parameters,
+					url: 'get_titles_guides.php',
+					type: 'get',
+					success: function(data){
+						if(data.correct == "true"){
+							data.forEach(function(title){
+								$("tbody").append("<tr> <td> <a href='#'>" + title + "</a> </td> <td> <a href='#'> Edit </a> </td> </tr>");
+							});
+						}else{
+							alert("Error al visualizar tus guías");
+						}
+					}
+				});
+			}
+			$(document).ready(function(){
+				checkLogged();
+				getGuides();
+			});
+			function logout(){
+				logOut();
+			}
+		</script>
+	</head>
+	<body>
+		<div class="bar">
+			<h3> My guides </h3>
+		</div>
+		<table class="table table-borderless table-hover">
+			<tbody>
+				<!-- Aquí irán las guías -->
+			</tbody>
+			</thead>
+		</table>
+	</body>
+</html>

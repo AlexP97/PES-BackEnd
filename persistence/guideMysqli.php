@@ -16,5 +16,22 @@ class GuideMysqli implements IDBGuide
 		$stament->close();
 		return $result;
 	}
-
+	public function getTitlesGuides($username)
+	{
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title FROM Guides WHERE username = (?)");
+		$stament->bind_param('s',$username);
+		$stament->execute();
+		if($stament->affected_rows<1){
+			$result = Connection::getInstance()->getConnection()->error;
+			return result;
+		}
+		else{
+			while($row = $stament->fetch_assoc()){
+				$array[] = $row["title"];
+			}
+		}
+		$stament->close();
+		return $array;
+	}
 }

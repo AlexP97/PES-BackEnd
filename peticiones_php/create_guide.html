@@ -7,6 +7,7 @@
 		<title> Create guide </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="functions.js"></script>
 		<link href="style_create.css" rel="stylesheet">
 
 		<!-- Main Quill library -->
@@ -23,8 +24,8 @@
 				//alert(document.getElementById("editor").firstChild.innerHTML);
 				if(document.getElementById("editor").firstChild.innerHTML == "") return;
 				var parameters = {
-					"username" : "elias2",
-					"title" : sessionStorage.getItem('username'),
+					"username" : sessionStorage.getItem('username'),
+					"title" : document.getElementById("title").innerHTML,
 					"data" : document.getElementById("editor").firstChild.innerHTML
 				};
 				$.ajax({
@@ -55,6 +56,9 @@
 	<body>
 		<div class="flex-container">
 			<h2 class="fixed-left"> Create guide </h2>
+			<div id="guides">
+				<a href="my_guides.html"> My guides </a>
+			</div>
 			<div class="fixed-right">
 				<button class="btn btn-dark" onclick="logout()"> Logout </button>
 			</div>

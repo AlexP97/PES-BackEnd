@@ -232,3 +232,30 @@ class NewGuideRequest extends Transaction
 		echo $myJSON;
 	}
 }
+
+/**
+* 
+*/
+class GetGuidesRequest extends Transaction
+{
+
+	private $username;
+	private $data;
+	private $title;
+	private $response;
+	
+	function __construct()
+	{
+		$this->username = isset($_GET["username"]) ? $_GET["username"] : null;
+		$this->response = new \stdClass();
+	}
+
+	public function execute()
+	{
+		header('Content-type: application/json');
+		$this->response->correct 
+			= SingletonDataFactory::getInstance()->getGuideDBController()->getTitlesGuides($this->username);
+		$myJSON = json_encode($this->response);
+		echo $myJSON;
+	}
+}
