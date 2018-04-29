@@ -240,8 +240,6 @@ class GetGuidesRequest extends Transaction
 {
 
 	private $username;
-	private $data;
-	private $title;
 	private $response;
 	
 	function __construct()
@@ -252,10 +250,11 @@ class GetGuidesRequest extends Transaction
 
 	public function execute()
 	{
-		header('Content-type: application/json');
-		$this->response->correct 
+		$this->response
 			= SingletonDataFactory::getInstance()->getGuideDBController()->getTitlesGuides($this->username);
+		header('Content-type: application/json');
 		$myJSON = json_encode($this->response);
 		echo $myJSON;
 	}
 }
+

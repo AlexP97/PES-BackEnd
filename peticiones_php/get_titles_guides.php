@@ -4,3 +4,5 @@
 	$tx = new GetGuidesRequest();
 	http_response_code(200);
 	$tx->execute();
+	
+?>
