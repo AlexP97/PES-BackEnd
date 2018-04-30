@@ -22,18 +22,12 @@ class GuideMysqli implements IDBGuide
 		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title FROM Guides WHERE username = ?");
 		$stament->bind_param('s',$username);
 		$stament->execute();
-		$stament->bind_result($result);
-		$stament->fetch();
-		sql->close();
-		if($result!=null){
-			$res->data[] = $result;
-			$res->correct = "true";
-			while($stament->fetch) {
-				$res->data = $result;
-			}
-		} else {
-			$res->correct = "false";
+		$result = $stament->get_result();
+		$res->data = array();
+		while($row = $result->fetch_assoc()){
+			array_push($res->data, $row);
 		}
+		$res->correct = true;
 		return $res;
 	}
 }
