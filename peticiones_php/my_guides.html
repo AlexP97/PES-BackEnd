@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="functions.js"></script>
-		<link href="" rel="stylesheet">
+		<link href="my_guides.css" rel="stylesheet">
 
 		<script>
 			function getGuides(){
@@ -40,11 +40,22 @@
 		</script>
 	</head>
 	<body>
-		<div class="bar">
-			<h3> My guides </h3>
+		<div class="flex-container">
+			<h3 class="fixed-left"> My guides </h3>
+			<div class="fixed-right">
+				<button class="btn btn-dark" onclick="logout()"> Logout </button>
+			</div>
 		</div>
 		<table class="table table-borderless table-hover">
 			<tbody>
+				<tr>
+					<td> <a href='#'> Título de prueba </a> </td>
+					<td> <a href='#'> Edit </a> </td>
+				</tr>
+				<tr>
+					<td> <a href='#'> Título de prueba 2 </a> </td>
+					<td> <a href='#'> Edit </a> </td>
+				</tr>
 				<!-- Aquí irán las guías -->
 			</tbody>
 			</thead>
