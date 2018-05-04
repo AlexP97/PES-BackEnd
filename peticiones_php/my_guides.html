@@ -25,7 +25,7 @@
 							res.data.forEach(function(title){
 								if (title != "" && title != "[object HTMLInputElement]"){
 									aux = id.toString();
-									$("tbody").append("<tr> <td> <a href='#' id='title" + aux + "'>" + title + "</a> </td> <td> <button id=" + aux + " onclick='edit(this.id)'> Edit </button> </td> </tr>");
+									$("tbody").append("<tr> <td> <button id=" + title + "" + aux + " onclick='see_guide(this.id)'>" + title + "</button> </td> <td> <button id=" + aux + " onclick='edit(this.id)'> Edit </button> </td> </tr>");
 								}
 								id++;
 							});
@@ -49,6 +49,11 @@
 				aux = "title" + id;
 				sessionStorage.setItem('guide', $("#"+aux).text());
 				window.location.href = "edit_guide.html";
+			}
+			function see_guide(id){
+				aux = "title" + id;
+				sessionStorage.setItem('guide', $("#"+aux).text());
+				window.location.href = "guide_view.html";
 			}
 		</script>
 	</head>
