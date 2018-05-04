@@ -26,7 +26,7 @@ class GuideMysqli implements IDBGuide
 		$res = new stdClass;
 		$res->data = array();
 		while($row = $result->fetch_assoc()){
-			array_push($res->data, $row);
+			array_push($res->data, $row["title"]);
 		}
 		$res->correct = "true";
 		return $res;
