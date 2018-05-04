@@ -47,8 +47,8 @@
 			}
 			function edit(id){
 				aux = "title" + id;
-				sessionStorage.setItem('guide', document.getElementById("aux").innerHTML;
-				window.location.href = edit_guide.html;
+				sessionStorage.setItem('guide', $("#"+aux).text());
+				window.location.href = "edit_guide.html";
 			}
 		</script>
 	</head>
