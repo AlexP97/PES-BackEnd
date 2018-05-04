@@ -21,12 +21,16 @@
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
+							console.log(res);/*
 							res.data.forEach(function(title){
 								$("tbody").append("<tr> <td> <a href='#'>" + title + "</a> </td> <td> <a href='#'> Edit </a> </td> </tr>");
-							});
+							});*/
 						}else{
 							alert("Error al visualizar tus guías");
 						}
+					},
+					error: function(da){
+						console.log(da);
 					}
 				});
 			}

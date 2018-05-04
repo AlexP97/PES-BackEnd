@@ -23,11 +23,12 @@ class GuideMysqli implements IDBGuide
 		$stament->bind_param('s',$username);
 		$stament->execute();
 		$result = $stament->get_result();
+		$res = new stdClass;
 		$res->data = array();
 		while($row = $result->fetch_assoc()){
 			array_push($res->data, $row);
 		}
-		$res->correct = true;
+		$res->correct = "true";
 		return $res;
 	}
 }
