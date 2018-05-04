@@ -45,4 +45,15 @@ class GuideMysqli implements IDBGuide
 		$res->correct = "true";
 		return $res;
 	}
+	public function updateGuide($lastTitle, $data, $title){
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$stament =  Connection::getInstance()->getConnection()->prepare("UPDATE Guides SET content = ?, title = ? WHERE title = ?");
+		//$stament =  Connection::getInstance()->getConnection()->prepare("INSERT INTO Guides(username,content,title) VALUES (?,?,?)");
+		$stament->bind_param('sss',$data,$title,$lastTitle);
+		$stament->execute();
+		if($stament->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
+		else $result = "true";
+		$stament->close();
+		return $result;
+	}
 }

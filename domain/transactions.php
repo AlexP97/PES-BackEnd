@@ -304,7 +304,31 @@ class GetDataGuideRequest extends Transaction
 	public function processRequest()
 	{
 		$this->response
-			= SingletonDataFactory::getInstance()->getGuideDBController()->GetDataGuide($this->title);
+			= SingletonDataFactory::getInstance()->getGuideDBController()->getDataGuide($this->title);
 	}
 }
 
+class UpdateDataGuideRequest extends Transaction
+{
+	private $lastTitle;
+	private $data;
+	private $title;
+	
+	function __construct()
+	{
+		$this->$lastTitle = isset($_POST["lastTitle"]) ? $_POST["lastTitle"] : null;
+		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
+		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
+	}
+
+	public function checkParameters()
+	{
+
+	}
+
+	public function processRequest()
+	{
+		$this->response
+			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->lastTitle, $this->data, $this->title);
+	}
+}

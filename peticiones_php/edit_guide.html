@@ -42,7 +42,7 @@
 				//alert(document.getElementById("editor").firstChild.innerHTML);
 				if(document.getElementById("editor").firstChild.innerHTML == "") return;
 				var parameters = {
-					"username" : sessionStorage.getItem('username'),
+					"lastTitle" : sessionStorage.getItem('guide'),
 					"title" : document.getElementById("title").innerHTML,
 					"data" : document.getElementById("editor").firstChild.innerHTML
 				};
