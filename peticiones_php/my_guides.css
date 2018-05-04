@@ -1,4 +1,3 @@
-html,
 body {
   height: 100%;
 }
@@ -16,6 +15,10 @@ body {
 .fixed-right{
   margin-left: 20%;
   margin-right: 5%;
+}
+
+.fixed-middle{
+  margin-left: 5%;
 }
 
 .flex-container{
