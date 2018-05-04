@@ -288,3 +288,23 @@ class GetGuidesRequest extends Transaction
 	} 
 }
 
+class GetDataGuideRequest extends Transaction
+{
+	private $title;
+	function __construct()
+	{
+		$this->title = isset($_GET["title"]) ? $_GET["title"] : null;
+	}
+
+	public function checkParameters()
+	{
+
+	}
+
+	public function processRequest()
+	{
+		$this->response
+			= SingletonDataFactory::getInstance()->getGuideDBController()->GetDataGuide($this->title);
+	}
+}
+

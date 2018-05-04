@@ -21,11 +21,13 @@
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
-							console.log(res);
+							id = 0;
 							res.data.forEach(function(title){
 								if (title != "" && title != "[object HTMLInputElement]"){
-									$("tbody").append("<tr> <td> <a href='#'>" + title + "</a> </td> <td> <a href='#'> Edit </a> </td> </tr>");
+									aux = id.toString();
+									$("tbody").append("<tr> <td> <a href='#' id='title" + aux + "'>" + title + "</a> </td> <td> <button id=" + aux + " onclick='edit(this.id)'> Edit </button> </td> </tr>");
 								}
+								id++;
 							});
 						}else{
 							alert("Error al visualizar tus guías");
@@ -43,6 +45,11 @@
 			function logout(){
 				logOut();
 			}
+			function edit(id){
+				aux = "title" + id;
+				sessionStorage.setItem('guide', document.getElementById("aux").innerHTML;
+				window.location.href = edit_guide.html;
+			}
 		</script>
 	</head>
 	<body>
@@ -54,14 +61,6 @@
 		</div>
 		<table class="table table-borderless table-hover">
 			<tbody>
-				<tr>
-					<td> <a href='#'> Título de prueba </a> </td>
-					<td> <a href='#'> Edit </a> </td>
-				</tr>
-				<tr>
-					<td> <a href='#'> Título de prueba 2 </a> </td>
-					<td> <a href='#'> Edit </a> </td>
-				</tr>
 				<!-- Aquí irán las guías -->
 			</tbody>
 			</thead>
