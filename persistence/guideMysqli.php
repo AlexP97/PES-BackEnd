@@ -16,5 +16,44 @@ class GuideMysqli implements IDBGuide
 		$stament->close();
 		return $result;
 	}
-
+	public function getTitlesGuides($username)
+	{
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title FROM Guides WHERE username = ?");
+		$stament->bind_param('s',$username);
+		$stament->execute();
+		$result = $stament->get_result();
+		$res = new stdClass;
+		$res->data = array();
+		while($row = $result->fetch_assoc()){
+			array_push($res->data, $row["title"]);
+		}
+		$res->correct = "true";
+		return $res;
+	}
+	public function getDataGuide($title)
+	{
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title, content FROM Guides WHERE title = ?");
+		$stament->bind_param('s',$title);
+		$stament->execute();
+		$result = $stament->get_result();
+		$res = new stdClass;
+		$row = $result->fetch_assoc();
+		$res->title = $row["title"];
+		$res->data = $row["content"];
+		$res->correct = "true";
+		return $res;
+	}
+	public function updateGuide($lastTitle, $data, $title){
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$stament =  Connection::getInstance()->getConnection()->prepare("UPDATE Guides SET content = ?, title = ? WHERE title = ?");
+		//$stament =  Connection::getInstance()->getConnection()->prepare("INSERT INTO Guides(username,content,title) VALUES (?,?,?)");
+		$stament->bind_param('sss',$data,$title,$lastTitle);
+		$stament->execute();
+		if($stament->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
+		else $result = "true";
+		$stament->close();
+		return $result;
+	}
 }

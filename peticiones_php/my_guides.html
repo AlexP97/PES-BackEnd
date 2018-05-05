@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset = "utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="Shortcut icon" href="Logo.png">
+		<title> My guides </title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="functions.js"></script>
+		<link href="my_guides.css" rel="stylesheet">
+
+		<script>
+			function getGuides(){
+				var parameters = {
+					"username" : sessionStorage.getItem('username')
+				};
+				$.ajax({
+					data: parameters,
+					url: 'get_titles_guides.php',
+					type: 'get',
+					success: function(res){
+						if(res.correct == "true"){
+							id = 0;
+							res.data.forEach(function(title){
+								if (title != "" && title != "[object HTMLInputElement]"){
+									aux = id.toString();
+									$("tbody").append("<tr> <td> <button class='btn btn-outline-primary' id=" + title + "" + aux + " onclick='see_guide(this.id)'>" + title + "</button> </td> <td> <button class='btn btn-outline-primary' id=" + aux + " onclick='edit(this.id)'> Edit </button> </td> </tr>");
+								}
+								id++;
+							});
+						}else{
+							alert("Error al visualizar tus guías");
+						}
+					},
+					error: function(da){
+						console.log(da);
+					}
+				});
+			}
+			$(document).ready(function(){
+				checkLogged();
+				getGuides();
+			});
+			function logout(){
+				logOut();
+			}
+			function edit(id){
+				aux = "title" + id;
+				sessionStorage.setItem('guide', $("#"+aux).text());
+				window.location.href = "edit_guide.html";
+			}
+			function see_guide(id){
+				aux = "title" + id;
+				sessionStorage.setItem('guide', $("#"+aux).text());
+				window.location.href = "guide_view.html";
+			}
+		</script>
+	</head>
+	<body>
+		<div class="flex-container">
+			<h3 class="fixed-left"> My guides </h3>
+			<div class="fixed-middle" style="margin-left: 5%; margin-top: 5px">
+				<a href="create_guide.html"> Create guide </a>
+			</div>
+			<div class="fixed-right">
+				<button class="btn btn-dark" onclick="logout()"> Logout </button>
+			</div>
+		</div>
+		<table class="table table-borderless table-hover">
+			<tbody>
+				<!-- Aquí irán las guías -->
+			</tbody>
+			</thead>
+		</table>
+	</body>
+</html>

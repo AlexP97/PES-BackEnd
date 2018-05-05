@@ -4,7 +4,7 @@
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="Shortcut icon" href="Logo.png">
-		<title> Create guide </title>
+		<title> Edit guide </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="functions.js"></script>
@@ -20,23 +20,41 @@
 
 
 		<script>
-			function new_guide(title) {
+			$(document).ready(function(){
+				title = sessionStorage.getItem('guide');
+				var parameters = {
+					"title" : title
+				};
+				$.ajax({
+					data: parameters,
+					url: 'get_data_guide.php',
+					type: 'get',
+					success: function(res){
+						if(res.correct == "true"){
+							$("#title").val(res.title);
+							document.getElementById("editor").innerHTML = res.data;
+						}
+						else alert("Error");
+					}
+				});
+			});
+			function edit_guide(title) {
 				//alert(document.getElementById("editor").firstChild.innerHTML);
 				if(document.getElementById("editor").firstChild.innerHTML == "") return;
 				var parameters = {
-					"username" : sessionStorage.getItem('username'),
+					"lastTitle" : sessionStorage.getItem('guide'),
 					"title" : document.getElementById("title").innerHTML,
 					"data" : document.getElementById("editor").firstChild.innerHTML
 				};
 				$.ajax({
 					data: parameters,
-					url: 'new_guide.php',
+					url: 'edit_guide.php',
 					type: 'post',
 					success: function(data){
 						if(data.correct == "true"){
-							alert("Guía CREADA!");
+							alert("Guía ACTUALIZADA!");
 						}else{
-							alert("Error al Crear la guia");
+							alert("Error al actualizar la guia");
 						}
 					}
 				});
@@ -55,8 +73,8 @@
 	</head>
 	<body>
 		<div class="flex-container">
-			<h3 class="fixed-left"> Create guide </h3>
-			<div class="fixed-middle" style="margin-left: 5%; margin-top: 5px">
+			<h2 class="fixed-left"> Edit guide </h2>
+			<div id="guides" style="margin-left: 5%; margin-top: 5px">
 				<a href="my_guides.html"> My guides </a>
 			</div>
 			<div class="fixed-right">
@@ -72,7 +90,7 @@
 	  			<h6>Content:</h6>
 				<div class="form-control" id="editor" ></div>
 			</div>
-			<input class="btn btn-primary" type="button" onclick="new_guide($('#title').val());" value="Submit" name="data" id="data" required>
+			<input class="btn btn-primary" type="button" onclick="edit_guide($('#title').val());" value="Submit" name="data" id="data" required>
 		</form>
 
 		<!-- Initialize Quill editor -->

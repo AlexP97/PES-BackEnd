@@ -18,10 +18,12 @@
 			$(document).ready(function(){
 			    $("#form1").submit(function(event){
 			        event.preventDefault();
+			        username = $("#username").val();
+			        password = $("#password").val();
 			        if(username == "" || password == "") return;
 					var parameters = {
-						"username" : $("#username").val(),
-						"password" : $("#password").val()
+						"username" : username,
+						"password" : password
 					};
 					$.ajax({
 						data: parameters,
@@ -49,7 +51,7 @@
 			<label for="username" class="sr-only"> Username </label>
 			<input class="form-control" placeholder="Username" type="text" name="username" id="username" required autofocus>
 			<label for="password" class="sr-only"> Password </label>
-			<input class="form-control" placeholder="Password" type="password" name="password" id="password">
+			<input class="form-control" placeholder="Password" type="password" name="password" id="password" required>
 			<div class="checkbox mb-3">
 		        <label>
 		          <input id="cb1" type="checkbox" value="remember-me"> Remember me

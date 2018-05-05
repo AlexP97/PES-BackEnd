@@ -1,0 +1,32 @@
+body {
+  height: 100%;
+}
+
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.fixed-left{
+  margin-left: 5%;
+}
+
+.fixed-right{
+  margin-left: 20%;
+  margin-right: 5%;
+}
+
+.fixed-middle{
+  margin-left: 5%;
+}
+
+.flex-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.table{
+  margin: 3%;
+}
