@@ -21,14 +21,9 @@
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
-							id = 0;
-							res.data.forEach(function(title){
-								if (title != "" && title != "[object HTMLInputElement]"){
-									aux = id.toString();
-									$("tbody").append("<tr> <td> <button class='btn btn-outline-primary' id=" + title + "" + aux + " onclick='see_guide(this.id)'>" + title + "</button> </td> <td> <button class='btn btn-outline-primary' id=" + aux + " onclick='edit(this.id)'> Edit </button> </td> </tr>");
-								}
-								id++;
-							});
+							for (var i=0; i<res.data.length; i=i+2) {
+								$("tbody").append("<tr> <td> <button class='btn btn-outline-primary' id=" + res.data[i] + " onclick='see_guide(this.id)'>" + res.data[i+1] + "</button> </td> <td> <button class='btn btn-outline-primary' id=\'edit_" + res.data[i] + " \' onclick='edit(this.id)'> Edit </button> </td> </tr>");
+							}
 						}else{
 							alert("Error al visualizar tus guías");
 						}
@@ -46,14 +41,11 @@
 				logOut();
 			}
 			function edit(id){
-				aux = "title" + id;
-				sessionStorage.setItem('guide', $("#"+aux).text());
-				window.location.href = "edit_guide.html";
+				id = id.substr(5);
+				window.location.href = "edit_guide.html?id_guide="+id;
 			}
 			function see_guide(id){
-				aux = "title" + id;
-				sessionStorage.setItem('guide', $("#"+aux).text());
-				window.location.href = "guide_view.html";
+				window.location.href = "guide_view.html?id_guide="+id;
 			}
 		</script>
 	</head>

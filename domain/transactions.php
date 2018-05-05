@@ -290,10 +290,10 @@ class GetGuidesRequest extends Transaction
 
 class GetDataGuideRequest extends Transaction
 {
-	private $title;
+	private $id_guide;
 	function __construct()
 	{
-		$this->title = isset($_GET["title"]) ? $_GET["title"] : null;
+		$this->id_guide = isset($_GET["id_guide"]) ? $_GET["id_guide"] : null;
 	}
 
 	public function checkParameters()
@@ -304,21 +304,21 @@ class GetDataGuideRequest extends Transaction
 	public function processRequest()
 	{
 		$this->response
-			= SingletonDataFactory::getInstance()->getGuideDBController()->getDataGuide($this->title);
+			= SingletonDataFactory::getInstance()->getGuideDBController()->getDataGuide($this->id_guide);
 	}
 }
 
 class UpdateDataGuideRequest extends Transaction
 {
-	private $lastTitle;
-	private $data;
+	private $id_guide;
 	private $title;
+	private $data;
 	
 	function __construct()
 	{
-		$this->$lastTitle = isset($_POST["lastTitle"]) ? $_POST["lastTitle"] : null;
-		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
+		$this->id_guide = isset($_POST["id_guide"]) ? $_POST["id_guide"] : null;
 		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
+		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
 	}
 
 	public function checkParameters()
@@ -329,6 +329,6 @@ class UpdateDataGuideRequest extends Transaction
 	public function processRequest()
 	{
 		$this->response
-			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->lastTitle, $this->data, $this->title);
+			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->id_guide, $this->title, $this->data);
 	}
 }

@@ -18,12 +18,12 @@
 		<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 		<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 
-
-		<script>
+		<script type="text/javascript">
 			$(document).ready(function(){
-				title = sessionStorage.getItem('guide');
+				checkLogged();
+				//title = sessionStorage.getItem('guide');
 				var parameters = {
-					"title" : title
+					"id_guide" : getUrlVars()["id_guide"]
 				};
 				$.ajax({
 					data: parameters,
@@ -37,21 +37,22 @@
 						else alert("Error");
 					}
 				});
+
 			});
 			function edit_guide(title) {
 				//alert(document.getElementById("editor").firstChild.innerHTML);
-				if(document.getElementById("editor").firstChild.innerHTML == "") return;
+				if(document.getElementById("editor").innerHTML == "" || title == "") return;
 				var parameters = {
-					"lastTitle" : sessionStorage.getItem('guide'),
-					"title" : document.getElementById("title").innerHTML,
-					"data" : document.getElementById("editor").firstChild.innerHTML
+					"id_guide" : getUrlVars()["id_guide"],
+					"title" : title,
+					"data" : document.getElementById("editor").innerHTML
 				};
 				$.ajax({
 					data: parameters,
 					url: 'edit_guide.php',
 					type: 'post',
-					success: function(data){
-						if(data.correct == "true"){
+					success: function(res){
+						if(res.correct == "true"){
 							alert("Guía ACTUALIZADA!");
 						}else{
 							alert("Error al actualizar la guia");
@@ -59,9 +60,6 @@
 					}
 				});
 			}
-			$(document).ready(function(){
-				checkLogged();
-			});
 			function logout(){
 				logOut();
 			}
@@ -69,7 +67,6 @@
 				alert(document.getElementById("editor").firstChild.innerHTML);
 			}
 		</script>
-		<script src="functions.js"> </script>
 	</head>
 	<body>
 		<div class="flex-container">
@@ -88,7 +85,7 @@
 	  		</div>
 	  		<div class="form-group">
 	  			<h6>Content:</h6>
-				<div class="form-control" id="editor" ></div>
+				<div class="form-control" id="editor" contenteditable="true"></div>
 			</div>
 			<input class="btn btn-primary" type="button" onclick="edit_guide($('#title').val());" value="Submit" name="data" id="data" required>
 		</form>

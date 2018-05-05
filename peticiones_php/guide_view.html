@@ -12,9 +12,10 @@
 
 		<script>
 			$(document).ready(function(){
-				title = sessionStorage.getItem('guide');;
+				checkLogged();
+				//title = sessionStorage.getItem('guide');
 				var parameters = {
-					"title" : title
+					"id_guide" : getUrlVars()["id_guide"]
 				};
 				$.ajax({
 					data: parameters,
@@ -22,15 +23,13 @@
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
-							document.getElementById("title").innerHTML = res.title;
+							$("#title").val(res.title);
 							document.getElementById("editor").innerHTML = res.data;
 						}
 						else alert("Error");
 					}
 				});
-			});
-			$(document).ready(function(){
-				checkLogged();
+
 			});
 			function logout(){
 				logOut();
@@ -54,7 +53,7 @@
 		<form class="form-guide" id="form1" method="POST">
 			<div class="form-group">
 				<h6>Title:</h6>
-	  			<input class="form-control" type="text" name="title" id="title" required autofocus>
+	  			<input class="form-control" readonly="true" type="text" name="title" id="title" required autofocus>
 	  		</div>
 	  		<div class="form-group">
 	  			<h6>Content:</h6>

@@ -22,10 +22,10 @@
 		<script>
 			function new_guide(title) {
 				//alert(document.getElementById("editor").firstChild.innerHTML);
-				if(document.getElementById("editor").firstChild.innerHTML == "") return;
+				if(document.getElementById("editor").firstChild.innerHTML == "" || document.getElementById("title").value =="") return;
 				var parameters = {
 					"username" : sessionStorage.getItem('username'),
-					"title" : document.getElementById("title").innerHTML,
+					"title" : document.getElementById("title").value,
 					"data" : document.getElementById("editor").firstChild.innerHTML
 				};
 				$.ajax({
@@ -35,6 +35,7 @@
 					success: function(data){
 						if(data.correct == "true"){
 							alert("Guía CREADA!");
+							window.location.replace("my_guides.html")
 						}else{
 							alert("Error al Crear la guia");
 						}
