@@ -3,7 +3,6 @@
     require '../domain/transactions.php';
 
     $tx = new EditUserRequest();
-	http_response_code(200);
 	$tx->execute();
 /*
 

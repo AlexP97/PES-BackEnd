@@ -81,17 +81,19 @@ class EditUserRequest extends Transaction
 	function __construct()
 	{
 		# code...
-		$this->username = $_POST["username"];
-		$this->password = hash('sha256', $_POST["user_password"]."AssistMe");
-		$this->email = $_POST["email"];
-		$this->name = $_POST["name"];
-		$this->surname = $_POST["surname"];
-		$this->country = $_POST["country"];
+		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
+		$this->password = isset($_POST["user_password"]) ?
+		 hash('sha256', $_POST["user_password"]."AssistMe") : null;
+		$this->email = isset($_POST["email"]) ? $_POST["email"] : null;
+		$this->name = isset($_POST["name"]) ? $_POST['name'] : null;
+		$this->surname = isset($_POST["surname"]) ? $_POST["surname"] : null;
+		$this->country = isset($_POST["country"]) ? $_POST["country"] : null;
 	}
 
 	public function checkParameters()
 	{
-
+		if(is_null($this->username) || is_null($this->password) || is_null($this->email)) 
+			$this->parameters['valid'] = false;
 	}
 
 	public function processRequest()
@@ -104,8 +106,9 @@ class EditUserRequest extends Transaction
 			"surname" => $this->surname,
 			"country" => $this->country,
 		);
-
-		$result = SingletonDataFactory::getInstance()->getUserDBController()->editUser($data);
+		$result = "";
+		if($this->parameters['valid'])
+			$result = SingletonDataFactory::getInstance()->getUserDBController()->editUser($data);
 		 if($result==="true") {
 		 	$this->response->correct = "true";
 			$this->response->result = "Se ha modificado el perfil correctamente.";
@@ -122,20 +125,31 @@ class EditUserRequest extends Transaction
 */
 class UserRequest extends Transaction
 {
-	
+	private $requiredUser;
+
 	function __construct()
 	{
 		# code...
+		$this->requiredUser = isset($_GET['username']) ? $_GET['username'] : null;
 	}
 
 	public function checkParameters()
 	{
-
+		if(is_null($this->requiredUser)) 
+			$this->parameters['valid'] = false;
 	}
 
 	public function processRequest()
 	{
-
+		
+		if($this->parameters['valid']) {
+			$result = SingletonDataFactory::getInstance()->getUserDBController()->getUser($this->requiredUser);
+			$this->response->correct = "true";
+			$this->response->userData = $result;
+		}
+		else {
+			$this->response->correct = "false";
+		}
 	}
 
 }

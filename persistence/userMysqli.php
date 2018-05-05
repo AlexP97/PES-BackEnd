@@ -7,7 +7,17 @@ class UserMysqli implements IDBUser
 {
 	public function getUser($username) 
 	{
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB");
+		$sql = Connection::getInstance()->getConnection()->prepare("SELECT username, name, surname, email, country, usertype From Users WHERE username=?");
+		$sql->bind_param('s',$username);
+		$sql->execute();
+		$result = array();
+		$sql->bind_result($result['username'],$result['name'],$result['surname'],$result['email'],
+			$result['country'],$result['usertype']);
+		$sql->fetch();
+		$sql->close();
 
+		return $result;
 	}
 
 	public function insertUser($data)
@@ -50,9 +60,9 @@ class UserMysqli implements IDBUser
 		$sql = Connection::getInstance()->getConnection()->prepare("UPDATE Users SET password = ?, email = ?, name = ?, surname = ?, country = ? WHERE username = ?");
 		$sql->bind_param('ssssss', $data['password'], $data['email'], $data['name'], $data['surname'], $data['country'], $data['username']);
 		$sql->execute();
-		if($stament->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
+		if($sql->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
 		else $result = "true";
-		$stament->close();
+		$sql->close();
 		return $result;
 	}
 }
