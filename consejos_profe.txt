@@ -1,0 +1,8 @@
+PRIORIDADES BACKLOG
+tasques hores estimas + posar las horas que hemos tardado en hacerlas
+retrospective x2 / x5 --> explicar
+velocita char 1 bara x srpint, no fags
+arquitectura añadir descripcion
+grafica añadir horas
+esquema base de datos explicar
+patrons y aspectes transversals. 
