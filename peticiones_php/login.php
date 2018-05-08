@@ -5,8 +5,6 @@
 	$tx = new LoginRequest();
 	$tx->execute();
 
-	$txuser = new UserRequest();
-	$txuser->execute();
 	/*	require('connection.php');
 
 	$username = $_POST["username"];
