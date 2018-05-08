@@ -57,4 +57,21 @@ class GuideMysqli implements IDBGuide
 		$stament->close();
 		return $res;
 	}
+
+	public function getSearchedGuides($contains){
+		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
+		$likeString = '%' . $contains . '%';
+		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT id_guide,title,content FROM Guides WHERE title LIKE ?");
+		$stament->bind_param('s', $likeString);
+		$stament->execute();
+		$result = $stament->get_result();
+		$res = new stdClass;
+		//$res->data = array('id_guide','title');
+		$res->data = array();
+		while($row = $result->fetch_assoc()){
+			array_push($res->data, $row["id_guide"], $row["title"], $row["content"]);
+		}
+		$res->correct = "true";
+		return $res;
+	}
 }

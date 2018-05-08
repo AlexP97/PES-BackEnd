@@ -6,4 +6,5 @@ interface IDBGuide
 	public function getTitlesGuides($username);
 	public function getDataGuide($title);
 	public function updateGuide($lastTitle, $data, $title);
+	public function getSearchedGuides($contains);
 }

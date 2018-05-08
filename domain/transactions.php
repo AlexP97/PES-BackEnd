@@ -346,3 +346,23 @@ class UpdateDataGuideRequest extends Transaction
 			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->id_guide, $this->title, $this->data);
 	}
 }
+
+class SearchGuideRequest extends Transaction {
+	private $contains;
+	
+	function __construct()
+	{
+		$this->contains = isset($_GET["contains"]) ? $_GET["contains"] : null;
+	}
+
+	public function checkParameters()
+	{
+
+	}
+
+	public function processRequest()
+	{
+		$this->response
+			= SingletonDataFactory::getInstance()->getGuideDBController()->getSearchedGuides($this->contains);
+	} 
+}
