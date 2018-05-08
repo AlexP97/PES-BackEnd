@@ -3,12 +3,12 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="Shortcut icon" href="Logo.png">
+		<link rel="Shortcut icon" href="../Images/Logo.png">
 		<title> Edit guide </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="functions.js"></script>
-		<link href="style_create.css" rel="stylesheet">
+		<script type="text/javascript" src="../js/functions.js"></script>
+		<link href="../css/style_create.css" rel="stylesheet">
 
 		<!-- Main Quill library -->
 		<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -27,7 +27,7 @@
 				};
 				$.ajax({
 					data: parameters,
-					url: 'get_data_guide.php',
+					url: '../peticiones_php/get_data_guide.php',
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
@@ -42,18 +42,20 @@
 			function edit_guide(title) {
 				//alert(document.getElementById("editor").firstChild.innerHTML);
 				if(document.getElementById("editor").innerHTML == "" || title == "") return;
+				var id = getUrlVars()["id_guide"];
 				var parameters = {
-					"id_guide" : getUrlVars()["id_guide"],
+					"id_guide" : id,
 					"title" : title,
 					"data" : document.getElementById("editor").innerHTML
 				};
 				$.ajax({
 					data: parameters,
-					url: 'edit_guide.php',
+					url: '../peticiones_php/edit_guide.php',
 					type: 'post',
 					success: function(res){
 						if(res.correct == "true"){
-							alert("Guía ACTUALIZADA!");
+							alert("Se ha actualizado la guía correctamente.");
+							window.location.replace("guide_view.html?id_guide="+id);
 						}else{
 							alert("Error al actualizar la guia");
 						}

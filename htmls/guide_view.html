@@ -3,12 +3,12 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="Shortcut icon" href="Logo.png">
+		<link rel="Shortcut icon" href="../Images/Logo.png">
 		<title id="page_title">Guide</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="functions.js"></script>
-		<link href="style_create.css" rel="stylesheet">
+		<script type="text/javascript" src="../js/functions.js"></script>
+		<link href="../css/style_create.css" rel="stylesheet">
 
 		<script>
 			$(document).ready(function(){
@@ -19,7 +19,7 @@
 				};
 				$.ajax({
 					data: parameters,
-					url: 'get_data_guide.php',
+					url: '../peticiones_php/get_data_guide.php',
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){
@@ -35,7 +35,7 @@
 				logOut();
 			}
 		</script>
-		<script src="functions.js"> </script>
+		<script src="../js/functions.js"> </script>
 	</head>
 
 

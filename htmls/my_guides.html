@@ -3,12 +3,12 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="Shortcut icon" href="Logo.png">
+		<link rel="Shortcut icon" href="../Images/Logo.png">
 		<title> My guides </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="functions.js"></script>
-		<link href="my_guides.css" rel="stylesheet">
+		<script type="text/javascript" src="../js/functions.js"></script>
+		<link href="../css/my_guides.css" rel="stylesheet">
 
 		<script>
 			function getGuides(){
@@ -17,7 +17,7 @@
 				};
 				$.ajax({
 					data: parameters,
-					url: 'get_titles_guides.php',
+					url: '../peticiones_php/get_titles_guides.php',
 					type: 'get',
 					success: function(res){
 						if(res.correct == "true"){

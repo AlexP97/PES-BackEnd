@@ -3,12 +3,12 @@
 	<head>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="Shortcut icon" href="Logo.png">
+		<link rel="Shortcut icon" href="../Images/Logo.png">
 		<title> Create guide </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="functions.js"></script>
-		<link href="style_create.css" rel="stylesheet">
+		<script type="text/javascript" src="../js/functions.js"></script>
+		<link href="../css/style_create.css" rel="stylesheet">
 
 		<!-- Main Quill library -->
 		<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -30,14 +30,14 @@
 				};
 				$.ajax({
 					data: parameters,
-					url: 'new_guide.php',
+					url: '../peticiones_php/new_guide.php',
 					type: 'post',
 					success: function(data){
 						if(data.correct == "true"){
-							alert("Guía CREADA!");
+							alert("Se ha creado la guía correctamente.");
 							window.location.replace("my_guides.html")
 						}else{
-							alert("Error al Crear la guia");
+							alert("Error al crear la guía");
 						}
 					}
 				});

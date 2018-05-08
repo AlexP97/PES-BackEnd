@@ -6,9 +6,9 @@
 		<title> AssistMe login </title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="functions.js"></script>
-		<link rel="Shortcut icon" href="Logo.png">
-		<link href="style.css" rel="stylesheet">
+		<script type="text/javascript" src="../js/functions.js"></script>
+		<link rel="Shortcut icon" href="../Images/Logo.png">
+		<link href="../css/style.css" rel="stylesheet">
 		<script type="text/javascript">
 			$(document).ready(function(){
 				checkSession();
@@ -27,7 +27,7 @@
 					};
 					$.ajax({
 						data: parameters,
-						url: 'login.php',
+						url: '../peticiones_php/login.php',
 						type: 'post',
 						success: function(data){
 							if(data.correct == "true"){
@@ -46,7 +46,7 @@
 	</head>
 	<body class="text-center">
 		<form class="form-signin" id="form1" method="POST">
-			<img class="mb-4" src="Logo.png" alt="" width="72" height="72">
+			<img class="mb-4" src="../Images/Logo.png" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal">Please login</h1>
 			<label for="username" class="sr-only"> Username </label>
 			<input class="form-control" placeholder="Username" type="text" name="username" id="username" required autofocus>
