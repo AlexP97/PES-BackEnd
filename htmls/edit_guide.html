@@ -32,7 +32,7 @@
 					success: function(res){
 						if(res.correct == "true"){
 							$("#title").val(res.title);
-							document.getElementById("editor").innerHTML = res.data;
+							document.getElementById("editor").firstChild.innerHTML = res.data;
 						}
 						else alert("Error");
 					}
@@ -46,7 +46,7 @@
 				var parameters = {
 					"id_guide" : id,
 					"title" : title,
-					"data" : document.getElementById("editor").innerHTML
+					"data" : document.getElementById("editor").firstChild.innerHTML
 				};
 				$.ajax({
 					data: parameters,
