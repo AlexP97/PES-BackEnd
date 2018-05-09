@@ -42,6 +42,10 @@
 			function logout(){
 				logOut();
 			}
+			/* Descargar una version de la Guia en PDF */
+			function Create_PDF(){
+				document.location.href = "../peticiones_php/pdf_converter.php?id_guide="+getUrlVars()["id_guide"];
+			}
 		</script>
 		<script src="../js/functions.js"> </script>
 	</head>
@@ -68,7 +72,9 @@
 				<div class="form-control" id="editor"></div>
 			</div>
 		</form>	
-
+		<div class="fixed-left">
+			<button class="btn btn-dark" onclick="Create_PDF()"> Dowload in PDF </button>
+		</div>
 		<!-- Editor sin opciones, solo para ver la Guia -->
 		<script>
 		  var toolbarOptions = [];     
