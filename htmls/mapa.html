@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Marker Labels</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+        width: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 5%;
+        padding: 0;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUcRVwUkZqn5OyQWZs_O1RqtH4_dAgP-o"></script>
+
+    <script>
+      // In the following example, markers appear when the user clicks on the map.
+      // Each marker is labeled with a single alphabetical character.
+
+      $(document).ready(function(){
+          
+
+          $("#form1").submit(function(event){
+              event.preventDefault();
+              var latitud = parseFloat($("#latitud").val());
+              var longitud = parseFloat($("#longitud").val());
+              edit_map(latitud, longitud);
+          });
+      });
+
+      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var labelIndex = 0;
+
+      function initialize() {
+        var bangalore = { lat: 41.426289, lng: 2.183132 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: bangalore
+        });
+
+        // This event listener calls addMarker() when the map is clicked.
+        google.maps.event.addListener(map, 'click', function(event) {
+          addMarker(event.latLng, map);
+        });
+      }
+
+      var infowindow = new google.maps.InfoWindow({
+          });
+
+      
+      // Adds a marker to the map.
+      function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        var marker = new google.maps.Marker({
+          position: location,
+          label: labels[labelIndex++ % labels.length],
+          map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+      function edit_map(latitud, longitud) {
+        var bangalore = { lat: latitud, lng: longitud };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: bangalore
+        });
+        google.maps.event.addListener(map, 'click', function(event) {
+          addMarker(event.latLng, map);
+        });
+        
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <form class="form-signin" id="form1" method="POST">
+      <label for="latitud" class="sr-only"> Latitud </label>
+      <input class="form-control" placeholder="Latitud" type="text" name="latitud" id="latitud" required autofocus>
+      <label for="longitud" class="sr-only"> Longitud </label>
+      <input class="form-control" placeholder="Longitud" type="longitud" name="longitud" id="longitud" required>
+      <input class="btn btn-lg btn-primary btn-block" type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"><br>
+    </form> 
+  </body>
+</html>
+
