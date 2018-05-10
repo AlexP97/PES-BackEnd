@@ -10,10 +10,17 @@
 		<script type="text/javascript" src="../js/functions.js"></script>
 		<link href="../css/style_create.css" rel="stylesheet">
 
+		<!-- Main Quill library -->
+		<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+		<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+		<!-- Theme included stylesheets -->
+		<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+		<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
 		<script>
 			$(document).ready(function(){
 				checkLogged();
-				//title = sessionStorage.getItem('guide');
 				var parameters = {
 					"id_guide" : getUrlVars()["id_guide"]
 				};
@@ -24,7 +31,8 @@
 					success: function(res){
 						if(res.correct == "true"){
 							$("#title").val(res.title);
-							document.getElementById("editor").innerHTML = res.data;
+							document.getElementById("editor").firstChild.innerHTML = res.data;
+							document.getElementById("editor").firstChild.setAttribute("contenteditable", "false");
 						}
 						else alert("Error");
 					}
@@ -33,6 +41,10 @@
 			});
 			function logout(){
 				logOut();
+			}
+			/* Descargar una version de la Guia en PDF */
+			function Create_PDF(){
+				document.location.href = "../peticiones_php/pdf_converter.php?id_guide="+getUrlVars()["id_guide"];
 			}
 		</script>
 		<script src="../js/functions.js"> </script>
@@ -57,8 +69,22 @@
 	  		</div>
 	  		<div class="form-group">
 	  			<h6>Content:</h6>
-				<div class="form-control" id="editor" ></div>
+				<div class="form-control" id="editor"></div>
 			</div>
-		</form>		
+		</form>	
+		<div class="fixed-left">
+			<button class="btn btn-dark" onclick="Create_PDF()"> Dowload in PDF </button>
+		</div>
+		<!-- Editor sin opciones, solo para ver la Guia -->
+		<script>
+		  var toolbarOptions = [];     
+		  var quill = new Quill('#editor', {
+		    theme: 'snow',
+		    modules: {
+			    toolbar: toolbarOptions
+			}
+		  });
+		</script>
+
 	</body>
 </html>

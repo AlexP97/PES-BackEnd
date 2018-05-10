@@ -8,7 +8,7 @@ require_once 'factory.php';
 abstract class Transaction
 {
 	protected $parameters; 
-	protected $response;
+	public $response;
 
 	abstract protected function checkParameters();
 	abstract protected function processRequest();
@@ -24,6 +24,10 @@ abstract class Transaction
 		header('Content-type: application/json');
 		$myJSON = json_encode($this->response);
 		echo $myJSON;
+	}
+
+	public function get_response(){
+		echo $response;
 	}
 }
 
@@ -320,6 +324,8 @@ class GetDataGuideRequest extends Transaction
 		$this->response
 			= SingletonDataFactory::getInstance()->getGuideDBController()->getDataGuide($this->id_guide);
 	}
+
+
 }
 
 class UpdateDataGuideRequest extends Transaction

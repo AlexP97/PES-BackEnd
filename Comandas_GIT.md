@@ -45,7 +45,10 @@ git merge feature
 git push origin feature
 ~~~~
 
-
+## Cancelar los cambios
+~~~~
+git checkout -- .
+~~~~
 
 
 
