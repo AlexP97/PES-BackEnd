@@ -63,9 +63,8 @@ class LoginRequest extends Transaction
 			$this->response->correct = "false";
 		}
 		else {
-			$this->response->correct 
-				= SingletonDataFactory::getInstance()->getUserDBController()->validLogin($this->username,
-				$this->password);
+			$this->response->correct = "true";
+			$this->response->data = SingletonDataFactory::getInstance()->getUserDBController()->validLogin($this->username,$this->password);
 		}
 	}
 }

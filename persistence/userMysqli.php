@@ -40,14 +40,16 @@ class UserMysqli implements IDBUser
 	public function validLogin($username,$password)
 	{
 		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
-		$sql = Connection::getInstance()->getConnection()->prepare("SELECT username From Users WHERE username=? AND password=?");
+		$sql = Connection::getInstance()->getConnection()->prepare("SELECT username, name, surname, email, country, usertype From Users WHERE username=? AND password=?");
 		$sql->bind_param('ss',$username,$password);
 		$sql->execute();
-		$sql->bind_result($result);
+		//$sql->bind_result($result);
+		$result = array();
+		$sql->bind_result($result['username'],$result['name'],$result['surname'],$result['email'],$result['country'],$result['usertype']);
 		$sql->fetch();
 		$sql->close();
 		if($result !== null){
-		return "true";
+			return $result;
 		} else {
 			return "false";
 		}
