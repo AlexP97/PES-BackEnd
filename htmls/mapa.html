@@ -26,10 +26,9 @@
       // In the following example, markers appear when the user clicks on the map.
       // Each marker is labeled with a single alphabetical character.
 
-      $(document).ready(function(){
-          
 
-          $("#form1").submit(function(event){
+      $(document).ready(function(){
+          $("#formpar").submit(function(event){
               event.preventDefault();
               var latitud = parseFloat($("#latitud").val());
               var longitud = parseFloat($("#longitud").val());
@@ -37,34 +36,59 @@
           });
       });
 
+      function edit_marker() {
+        $("tbody").append("<form class='form-signin' id='form" + labelIndex + "' method='POST'> <label> Punto de interés " + labels[labelIndex] + ": </label> <input class='form-control' placeholder='Descripción' type='text' name='puntointeres"+labelIndex+"' id='puntointeres"+labelIndex+"' required autofocus> <input class='btn btn-lg btn-primary btn-block' type='button' onclick=submit_marker() class='btn btn-lg btn-primary btn-block' value='Submit'></form>");
+      }
+
+      function submit_marker() {
+          console.log("puntointeres"+labelIndex);
+          var description = $("#puntointeres"+labelIndex).val();
+          console.log(description);
+          addMarker(description);
+          sessionStorage.setItem('editando', "false");
+          document.getElementById("tbody").innerHTML = '';
+      }
+      
+
       var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       var labelIndex = 0;
 
       function initialize() {
         var bangalore = { lat: 41.426289, lng: 2.183132 };
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: bangalore
         });
 
         // This event listener calls addMarker() when the map is clicked.
         google.maps.event.addListener(map, 'click', function(event) {
-          addMarker(event.latLng, map);
+          if(sessionStorage.getItem('editando')) {
+              if(sessionStorage.getItem('editando') == "false") {
+                sessionStorage.setItem('editando', "true");
+                locate = event.latLng;
+                edit_marker();
+              }
+          }
+          else {
+              sessionStorage.setItem('editando', "true");
+              locate = event.latLng;
+              edit_marker();
+          }
         });
       }
-
-      var infowindow = new google.maps.InfoWindow({
-          });
-
       
       // Adds a marker to the map.
-      function addMarker(location, map) {
+      function addMarker(description) {
         // Add the marker at the clicked location, and add the next-available label
         // from the array of alphabetical characters.
+        console.log(description);
         var marker = new google.maps.Marker({
-          position: location,
+          position: locate,
           label: labels[labelIndex++ % labels.length],
           map: map
+        });
+        var infowindow = new google.maps.InfoWindow({
+          content: description
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
@@ -76,27 +100,45 @@
 
       function edit_map(latitud, longitud) {
         var bangalore = { lat: latitud, lng: longitud };
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: bangalore
         });
         google.maps.event.addListener(map, 'click', function(event) {
-          addMarker(event.latLng, map);
+          var editando = getCookie("editando");
+          if(editando != "") {
+              if(editando) {
+                edit_marker(event.latLng);
+              }
+          }
+          else {
+              setCookie("editando", "true");
+              edit_marker(event.latLng);
+          }
         });
-        
       }
+
+      
     </script>
   </head>
   <body>
     <div id="map"></div>
 
-    <form class="form-signin" id="form1" method="POST">
+    <form class="form-signin" id="formpar" method="POST">
       <label for="latitud" class="sr-only"> Latitud </label>
       <input class="form-control" placeholder="Latitud" type="text" name="latitud" id="latitud" required autofocus>
       <label for="longitud" class="sr-only"> Longitud </label>
       <input class="form-control" placeholder="Longitud" type="longitud" name="longitud" id="longitud" required>
       <input class="btn btn-lg btn-primary btn-block" type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"><br>
     </form> 
+    <table>
+      <tbody id="tbody">
+      </tbody>
+    </table>
   </body>
 </html>
+
+
+
+
 
