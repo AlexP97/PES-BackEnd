@@ -259,12 +259,14 @@ class NewGuideRequest extends Transaction
 	private $username;
 	private $data;
 	private $title;
+	private $map;
 	
 	function __construct()
 	{
 		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
 		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
 		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
+		$this->map = isset($_POST["map"]) ? $_POST["map"] : null;
 	}
 
 	public function checkParameters()
@@ -276,7 +278,7 @@ class NewGuideRequest extends Transaction
 	{
 		$this->response->correct 
 			= SingletonDataFactory::getInstance()->getGuideDBController()->insertGuide($this->username,
-			$this->data, $this->title);
+			$this->data, $this->title, $this->map);
 	}
 }
 

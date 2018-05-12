@@ -34,12 +34,6 @@
 	            }
 	        }
 	    </script>
-	    <script type="text/javascript">
-	    	function alertamapa() {
-	    		alert(document.getElementById("googleMap").innerHTML);
-	    		console.log(document.getElementById("googleMap").innerHTML);
-	    	}
-	    </script>
 	    <script>
 		    $(document).ready(function(){
 		      $("#formpar").submit(function(event){
@@ -53,13 +47,14 @@
 
 		<script>
 			function new_guide(title) {
+				var myJSONString = JSON.stringify(puntos);
 				//alert(document.getElementById("editor").firstChild.innerHTML);
 				if(document.getElementById("editor").firstChild.innerHTML == "" || document.getElementById("title").value =="") return;
 				var parameters = {
 					"username" : sessionStorage.getItem('username'),
 					"title" : document.getElementById("title").value,
 					"data" : document.getElementById("editor").firstChild.innerHTML,
-					"map" : document.getElementById("googleMap").innerHTML
+					"map" : myJSONString
 				};
 				$.ajax({
 					data: parameters,
@@ -77,6 +72,7 @@
 			}
 			$(document).ready(function(){
 				checkLogged();
+				puntos = [];
 			});
 			function logout(){
 				logOut();
@@ -122,7 +118,6 @@
 			    </table>
 			  </span>
 			<input class="btn btn-primary" type="button" onclick="new_guide($('#title').val());" value="Submit" name="data" id="data" required>
-			<input class='btn btn-lg btn-primary btn-block' type='button' onclick=alertamapa() class='btn btn-lg btn-primary btn-block' value='ya'>
 		</form>
 
 		<script>
@@ -132,10 +127,13 @@
 		  }
 
 		  function submit_marker() {
-		      console.log("puntointeres"+labelIndex);
 		      var description = $("#puntointeres"+labelIndex).val();
-		      console.log(description);
 		      addMarker(description);
+		      var object = {
+		      	location: locate,
+		      	text: description
+		      }
+		      puntos.push(object);
 		      sessionStorage.setItem('editando', "false");
 		      document.getElementById("tbody").innerHTML = '';
 		  }
@@ -147,8 +145,8 @@
 
 			function myMap() {
 				var mapProp= {
-				    center:new google.maps.LatLng(51.508742,-0.120850),
-				    zoom:5,
+				    center:new google.maps.LatLng(41.432999, 2.190427),
+				    zoom:9,
 				};
 				map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 				google.maps.event.addListener(map, 'click', function(event) {
@@ -170,7 +168,6 @@
 			function addMarker(description) {
 		        // Add the marker at the clicked location, and add the next-available label
 		        // from the array of alphabetical characters.
-		        console.log(description);
 		        var marker = new google.maps.Marker({
 		          position: locate,
 		          label: labels[labelIndex++ % labels.length],
