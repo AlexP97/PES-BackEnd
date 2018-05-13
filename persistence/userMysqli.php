@@ -48,7 +48,7 @@ class UserMysqli implements IDBUser
 		$sql->bind_result($result['username'],$result['name'],$result['surname'],$result['email'],$result['country'],$result['usertype']);
 		$sql->fetch();
 		$sql->close();
-		if($result !== null){
+		if($result['username'] !== null){
 			return $result;
 		} else {
 			return "false";

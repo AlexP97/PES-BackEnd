@@ -29,8 +29,8 @@
 						data: parameters,
 						url: '../peticiones_php/login.php',
 						type: 'post',
-						success: function(data){
-							if(data.correct == "true"){
+						success: function(res){
+							if(res.data != "false"){
 								var cb = document.getElementById("cb1");
 								if(cb.checked) localStorage.setItem('username', username);
 								sessionStorage.setItem('username', username);
