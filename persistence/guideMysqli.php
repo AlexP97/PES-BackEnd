@@ -35,7 +35,7 @@ class GuideMysqli implements IDBGuide
 	public function getDataGuide($id_guide)
 	{
 		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
-		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title, content FROM Guides WHERE id_guide = ?");
+		$stament =  Connection::getInstance()->getConnection()->prepare("SELECT title, content, interest_points FROM Guides WHERE id_guide = ?");
 		$stament->bind_param('s',$id_guide);
 		$stament->execute();
 		$result = $stament->get_result();
@@ -43,13 +43,14 @@ class GuideMysqli implements IDBGuide
 		$row = $result->fetch_assoc();
 		$res->title = $row["title"];
 		$res->data = $row["content"];
+		$res->points = $row["interest_points"]; 
 		$res->correct = "true";
 		return $res;
 	}
-	public function updateGuide($id_guide, $title, $data){
+	public function updateGuide($id_guide, $title, $data, $map){
 		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
-		$stament =  Connection::getInstance()->getConnection()->prepare("UPDATE Guides SET content = ?, title = ? WHERE id_guide = ?");
-		$stament->bind_param('sss',$data,$title,$id_guide);
+		$stament =  Connection::getInstance()->getConnection()->prepare("UPDATE Guides SET content = ?, title = ?, interest_points = ? WHERE id_guide = ?");
+		$stament->bind_param('ssss',$data,$title,$map,$id_guide);
 		$stament->execute();
 		$res = new stdClass;
 		if($stament->affected_rows < 1) $res = Connection::getInstance()->getConnection()->error;
