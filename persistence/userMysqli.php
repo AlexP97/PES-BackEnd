@@ -23,7 +23,7 @@ class UserMysqli implements IDBUser
 	public function insertUser($data)
 	{
 		if(!Connection::getInstance()->getConnection()) throw new Exception("Not enable to connect with DB", 1);
-		$stament =  Connection::getInstance()->getConnection()->prepare("INSERT INTO Users VALUES (?,?,?,?,?,?,?)");
+		$stament =  Connection::getInstance()->getConnection()->prepare("INSERT INTO Users VALUES (?,?,?,?,?,?,?,null)");
 		$stament->bind_param('sssssss',$data['username'],$data['password'],$data['email'],$data['usertype'],
 			$data['name'],$data['surname'],$data['country']);
 		$stament->execute();
@@ -48,7 +48,7 @@ class UserMysqli implements IDBUser
 		$sql->bind_result($result['username'],$result['name'],$result['surname'],$result['email'],$result['country'],$result['usertype'],$result['password']);
 		$sql->fetch();
 		$sql->close();
-		if($result !== null){
+		if($result['username'] !== null){
 			return $result;
 		} else {
 			return "false";

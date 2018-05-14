@@ -294,12 +294,14 @@ class NewGuideRequest extends Transaction
 	private $username;
 	private $data;
 	private $title;
+	private $map;
 	
 	function __construct()
 	{
 		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
 		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
 		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
+		$this->map = isset($_POST["map"]) ? $_POST["map"] : null;
 	}
 
 	public function checkParameters()
@@ -311,7 +313,7 @@ class NewGuideRequest extends Transaction
 	{
 		$this->response->correct 
 			= SingletonDataFactory::getInstance()->getGuideDBController()->insertGuide($this->username,
-			$this->data, $this->title);
+			$this->data, $this->title, $this->map);
 	}
 }
 
@@ -367,12 +369,14 @@ class UpdateDataGuideRequest extends Transaction
 	private $id_guide;
 	private $title;
 	private $data;
+	private $map;
 	
 	function __construct()
 	{
 		$this->id_guide = isset($_POST["id_guide"]) ? $_POST["id_guide"] : null;
 		$this->title = isset($_POST["title"]) ? $_POST["title"] : null;
 		$this->data = isset($_POST["data"]) ? $_POST["data"] : null;
+		$this->map = isset($_POST["map"]) ? $_POST["map"] : null;
 	}
 
 	public function checkParameters()
@@ -383,7 +387,7 @@ class UpdateDataGuideRequest extends Transaction
 	public function processRequest()
 	{
 		$this->response
-			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->id_guide, $this->title, $this->data);
+			= SingletonDataFactory::getInstance()->getGuideDBController()->updateGuide($this->id_guide, $this->title, $this->data, $this->map);
 	}
 }
 
