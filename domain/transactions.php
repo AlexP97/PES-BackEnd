@@ -69,6 +69,41 @@ class LoginRequest extends Transaction
 	}
 }
 
+// Verificar si la "cokkie" guardada puede logearse
+class CheckLoginRequest extends Transaction
+{
+	private $username;
+	private $password;
+
+	function __construct()
+	{
+		# code...
+		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
+		$this->password = isset($_POST["password"]) ? $_POST["password"] : null;
+	}
+
+	public function checkParameters()
+	{
+		if($this->username === null || $this->password === null) {
+			$this->parameters['valid'] = false;
+			$this->parameters['error'] = "invalid null parameter on uri";
+		}
+
+	}
+	
+	public function processRequest()
+	{
+		if(!$this->parameters['valid']) {
+			$this->response->error = $this->parameters['error'];
+			$this->response->correct = "false";
+		}
+		else {
+			$this->response->correct = "true";
+			$this->response->data = SingletonDataFactory::getInstance()->getUserDBController()->validLogin($this->username,$this->password);
+		}
+	}
+}
+
 /**
 * 
 */
