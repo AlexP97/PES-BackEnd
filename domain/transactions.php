@@ -115,22 +115,27 @@ class EditUserRequest extends Transaction
 	private $name;
 	private $surname;
 	private $country;
+	private $url_picture;
+	private $current_password;
 
 	function __construct()
 	{
 		# code...
-		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
-		$this->password = isset($_POST["user_password"]) ?
+		$this->username = isset($_POST["username"]) && $_POST['username'] !== "" ? $_POST["username"] : null;
+		$this->password = isset($_POST["user_password"]) && $_POST['user_password'] !== "" ?
 		 hash('sha256', $_POST["user_password"]."AssistMe") : null;
-		$this->email = isset($_POST["email"]) ? $_POST["email"] : null;
-		$this->name = isset($_POST["name"]) ? $_POST['name'] : null;
-		$this->surname = isset($_POST["surname"]) ? $_POST["surname"] : null;
-		$this->country = isset($_POST["country"]) ? $_POST["country"] : null;
+		$this->email = isset($_POST["email"])&& $_POST['email'] !== "" ? $_POST["email"] : null;
+		$this->name = isset($_POST["name"]) && $_POST['name'] !== "" ? $_POST['name'] : null;
+		$this->surname = isset($_POST["surname"]) && $_POST['surname'] !== "" ? $_POST["surname"] : null;
+		$this->country = isset($_POST["country"]) && $_POST['country'] !== "" ? $_POST["country"] : null;
+		$this->url_picture = isset($_POST["url_picture"]) && $_POST['url_picture'] !== "" ? $_POST["url_picture"] : null;
+		$this->current_password = isset($_POST["current_password"]) && $_POST['current_password'] !== ""? 
+		hash('sha256', $_POST["current_password"]."AssistMe") : null;
 	}
 
 	public function checkParameters()
 	{
-		if(is_null($this->username) || is_null($this->password) || is_null($this->email)) 
+		if(is_null($this->current_password) || is_null($this->username)) 
 			$this->parameters['valid'] = false;
 	}
 
@@ -143,6 +148,8 @@ class EditUserRequest extends Transaction
 			"name" => $this->name,
 			"surname" => $this->surname,
 			"country" => $this->country,
+			"url_picture" => $this->url_picture,
+			"current_password" => $this->current_password,
 		);
 		$result = "";
 		if($this->parameters['valid'])
@@ -204,6 +211,7 @@ class RegisterRequest extends Transaction
 	private $name;
 	private $surname;
 	private $country;
+	private $url_picture;
 	private $error;
 
 	function __construct()
@@ -216,6 +224,7 @@ class RegisterRequest extends Transaction
 		$this->name = isset($_POST["name"]) ? $_POST["name"] : null;
 		$this->surname = isset($_POST["surname"]) ? $_POST["surname"] : null;
 		$this->country = isset($_POST["country"]) ? $_POST["country"] : null;
+		$this->url_picture = isset($_POST["url_picture"]) ? $_POST["url_picture"] : null;
 
 		$this->error = FALSE;
 	}
