@@ -70,7 +70,11 @@ class GuideMysqli implements IDBGuide
 		//$res->data = array('id_guide','title');
 		$res->data = array();
 		while($row = $result->fetch_assoc()){
-			array_push($res->data, $row["id_guide"], $row["title"]);
+			$array = array(
+				"id" => $row["id_guide"],
+				"title" => $row["title"],
+			);
+			array_push($res->data, $array);
 		}
 		$res->correct = "true";
 		return $res;
