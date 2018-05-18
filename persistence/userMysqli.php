@@ -68,7 +68,6 @@ class UserMysqli implements IDBUser
 			country = IFNULL(?,country), 
 			url_picture = IFNULL(?,url_picture)
 			WHERE username = ? AND password = ?");
-		echo Connection::getInstance()->getConnection()->error;
 		$sql->bind_param('ssssssss', $data['password'],$data['email'],$data['name'], $data['surname'],
 			$data['country'],$data['url_picture'], $data['username'], $data['current_password']);
 		$sql->execute();
@@ -76,5 +75,17 @@ class UserMysqli implements IDBUser
 		else $result = "true";
 		$sql->close();
 		return $result;
+	}
+
+	public function updatePassword($data) 
+	{
+		$sql = Connection::getInstance()->getConnection()->prepare("UPDATE Users SET
+			password = ? WHERE username = ? AND password = ?");
+		$sql->bind_param('sss',$data['new_password'],$data['username'],$data['current_password']);
+		$sql->execute();
+		if($sql->affected_rows<1) $result = Connection::getInstance()->getConnection()->error;
+		else $result = "true";
+		$sql->close();
+		return $result; 
 	}
 }

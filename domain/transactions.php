@@ -42,18 +42,17 @@ class LoginRequest extends Transaction
 	function __construct()
 	{
 		# code...
-		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
-		$this->password = isset($_POST["password"]) ? $_POST["password"] : null;
-		if($this->password !== null) $this->password = hash('sha256', $this->password."AssistMe");
+		$this->username = isset($_POST["username"]) && $_POST["username"] !== "" ? $_POST["username"] : null;
+		$this->password = isset($_POST["password"]) && $_POST["password"] !== "" ? 
+		hash('sha256', $_POST['password']."AssistMe") : null;
 	}
 
 	public function checkParameters()
 	{
 		if($this->username === null || $this->password === null) {
 			$this->parameters['valid'] = false;
-			$this->parameters['error'] = "invalid null parameter on uri";
+			$this->parameters['error'] = "invalid parameter on uri (null or empty user/password)";
 		}
-
 	}
 	
 	public function processRequest()
@@ -78,15 +77,15 @@ class CheckLoginRequest extends Transaction
 	function __construct()
 	{
 		# code...
-		$this->username = isset($_POST["username"]) ? $_POST["username"] : null;
-		$this->password = isset($_POST["password"]) ? $_POST["password"] : null;
+		$this->username = isset($_POST["username"]) && $_POST['username'] !== "" ? $_POST["username"] : null;
+		$this->password = isset($_POST["password"]) && $_POST['password'] !== "" ? $_POST["password"] : null;
 	}
 
 	public function checkParameters()
 	{
 		if($this->username === null || $this->password === null) {
 			$this->parameters['valid'] = false;
-			$this->parameters['error'] = "invalid null parameter on uri";
+			$this->parameters['error'] = "invalid parameter on uri (null or empty user/password)";
 		}
 
 	}
@@ -122,8 +121,6 @@ class EditUserRequest extends Transaction
 	{
 		# code...
 		$this->username = isset($_POST["username"]) && $_POST['username'] !== "" ? $_POST["username"] : null;
-		$this->password = isset($_POST["user_password"]) && $_POST['user_password'] !== "" ?
-		 hash('sha256', $_POST["user_password"]."AssistMe") : null;
 		$this->email = isset($_POST["email"])&& $_POST['email'] !== "" ? $_POST["email"] : null;
 		$this->name = isset($_POST["name"]) && $_POST['name'] !== "" ? $_POST['name'] : null;
 		$this->surname = isset($_POST["surname"]) && $_POST['surname'] !== "" ? $_POST["surname"] : null;
@@ -143,7 +140,6 @@ class EditUserRequest extends Transaction
 	{
 		$data = array(
 			"username" => $this->username,
-			"password" => $this->password,
 			"email" => $this->email,
 			"name" => $this->name,
 			"surname" => $this->surname,
@@ -162,6 +158,54 @@ class EditUserRequest extends Transaction
 		 	$this->response->correct = "false";
 		 	$this->response->result = $result;
 		 }
+	}
+}
+
+Class UpdateUserPassword extends Transaction
+{
+	private $username;
+	private $current_password;
+	private $new_password;
+
+	function __construct()
+	{
+		$this->username = isset($_POST['username']) && $_POST['username'] !== "" ?
+			$_POST['username'] : null;
+		$this->current_password = isset($_POST['current_password']) && $_POST['current_password'] !== "" ?
+			hash('sha256', $_POST['current_password']."AssistMe") : null;
+		$this->new_password = isset($_POST['new_password']) && $_POST['new_password'] !== "" ?
+			hash('sha256', $_POST['new_password']."AssistMe") : null;
+	}
+
+	public function checkParameters()
+	{
+		if(is_null($_POST['username']) || is_null($_POST['current_password']) || is_null($_POST['new_password'])) {
+			$this->parameters['valid'] = false;
+			$this->parameters['error'] = "Wrong parameters: Some value is empty or null";
+		}
+	}
+
+	public function processRequest()
+	{
+		if(!$this->parameters['valid']) {
+			$this->response->correct = "false";
+			$this->response->result = $this->parameters['error'];
+		}
+		else {
+			$data = array(
+				'username' => $this->username,
+				'current_password' => $this->current_password,
+				'new_password' => $this->new_password,
+				 );
+			$result = SingletonDataFactory::getInstance()->getUserDBController()->updatePassword($data);
+			if($result === "true") {
+				$this->response->correct = "true";
+			}
+			else {
+				$this->response->correct = "false";
+				$this->response->result = $result;
+			}
+		}
 	}
 }
 
